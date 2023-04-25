@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head th:replace="fragments :: metaetj" />
+<body>
+
+<div th:replace="navigation :: menu"></div>
+
+<div class="mt-4 " style="margin-left: 192px;">
+    <button type="button" class="btn btn-primary shadow mb-2 rounded">Shto Kategorin</button>
+</div>
+
+
+<div class="text-center">
+<div class="mt-3 full-details d-flex justify-content-center">
+		<table class="table table-bordered table-striped table-hover table-responsive-xl w-75 shadow p-3 mb-5 bg-white rounded">
+			<thead class="table-info">
+				<tr>
+					<th>Id</th>
+					<th>Foto</th>
+					<th>Emri</th>
+					<th>Pseudonimi</th>
+					<th>Aktivizimi</th>
+					<th>Veprime</th>
+				</tr>								
+			</thead>
+			<tbody>
+				<tr>
+					<td>Test</td>
+					<td>Test1</td>
+					<td>Test Test</td>
+					<td>Testt Testt</td>
+					<td>
+						
+					</td>
+
+					<td>
+						<button type="button" class="btn btn-success shadow rounded">Edit</button>
+						|
+						<button type="button" class="btn btn-danger shadow rounded">Delete</button>					
+					</td>					
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+	
+	<div th:replace="fragments :: footer"></div>
+</body>
+</html>
