@@ -6,11 +6,12 @@
 <div th:replace="navigation :: menu"></div>
 
 <div class="mt-4 " style="margin-left: 192px;">
-    <button type="button" class="btn btn-primary shadow mb-2 rounded">Shto Perdoruesin</button>
+    <a th:href="@{/users/new}"><button type="button" class="btn btn-primary shadow mb-2 rounded">Shto Perdoruesin</button></a>
 </div>
 
-
-<div class="text-center">
+<div th:replace="fragments :: search_form_and_message" />
+	
+<div class="mt-4 text-center">
 <div class="mt-3 full-details d-flex justify-content-center">
 		<table class="table table-bordered table-striped table-hover table-responsive-xl w-75 shadow p-3 mb-5 bg-white rounded">
 			<thead class="table-info">
@@ -20,32 +21,57 @@
 					<th>Email</th>
 					<th>Emri</th>
 					<th>Mbiemri</th>
+					<th>Roli</th>
 					<th>Aktivizimi</th>
 					<th>Veprime</th>
 				</tr>								
 			</thead>
 			<tbody>
-				<tr>
-					<td>Test</td>
-					<td>Test1</td>
-					<td>Test Test</td>
-					<td>Testt Testt</td>
-					<td>Testts Testts</td>
+				<tr th:each="user : ${listUsers}">
+					<td>[[${user.id}]]</td>
 					<td>
-						
+					    <span th:if="${user.photos == null}"><img th:src="@{/images/default-user.png}"
+							style="width: 50px" /></span>
+						<img th:if="${user.photos != null}" th:src="@{${user.photosImagePath}}"
+							style="width: 50px" />
 					</td>
+					<td>[[${user.email}]]</td>
+					<td>[[${user.firstName}]]</td>
+					<td>[[${user.lastName}]]</td>
+					<td>[[${user.roles}]]</td>
+					<td><a th:if="${user.enabled == true}"
+							th:href="@{'/users/' + ${user.id} + '/enabled/false'}"
+							title="Çaktivizo këtë përdorues"
+							><button type="button" class="btn btn-info shadow rounded">Aktiv</button></a>
+
+						<a th:if="${user.enabled == false}" 
+							th:href="@{'/users/' + ${user.id} + '/enabled/true'}"
+							title="Aktivizo këtë përdorues"
+							><button type="button" class="btn btn-danger shadow rounded">Deaktiv</button></a></td>
 
 					<td>
-						<button type="button" class="btn btn-success shadow rounded">Edit</button>
-						|
-						<button type="button" class="btn btn-danger shadow rounded">Delete</button>					
+						<div th:replace="fragments :: edit('user', '/users/edit/' + ${user.id})" />
+						&nbsp;&nbsp;
+						<div th:replace="fragments :: delete('user', ${user.id}, '/users/delete/' + ${user.id}, true)" />				
 					</td>					
 				</tr>
 			</tbody>
 		</table>
 	</div>
 </div>
+
+
+<div th:replace="fragments :: pagination('users')"></div>
+
+<div th:replace="modal_fragment :: confirm_modal" />
 	
-	<div th:replace="fragments :: footer"></div>
+<div th:replace="fragments :: footer"></div>
+	
+<script th:src="@{/js/common_list.js}"></script>
+<script type="text/javascript">
+	moduleURL = "[[@{/users}]]";
+
+	entityName = "user";
+</script>
 </body>
 </html>
