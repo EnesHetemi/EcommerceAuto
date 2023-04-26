@@ -50,6 +50,8 @@ public class UserController {
 		model.addAttribute("totalItems", page.getTotalElements());
 		model.addAttribute("listUsers", listUsers);
 		model.addAttribute("keyword", keyword);
+		model.addAttribute("endCount", endCount);
+		model.addAttribute("moduleURL", "/users");
 
 		return "users/users";
 	}
@@ -117,7 +119,11 @@ public class UserController {
 			Model model,
 			RedirectAttributes redirectAttributes) {
 		try {
-			service.delete(id);;
+			service.delete(id);
+			
+			String userDir = "../user-photos/" + id;
+			FileUploadUtil.removeDir(userDir);
+			
 			redirectAttributes.addFlashAttribute("message", 
 					"Perdoruesi me ID " + id + " është fshirë me sukses");
 		} catch (UserNotFoundException ex) {

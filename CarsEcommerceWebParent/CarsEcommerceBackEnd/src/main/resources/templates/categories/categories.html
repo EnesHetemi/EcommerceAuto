@@ -6,9 +6,12 @@
 <div th:replace="navigation :: menu"></div>
 
 <div class="mt-4 " style="margin-left: 192px;">
-    <button type="button" class="btn btn-primary shadow mb-2 rounded">Shto Kategorin</button>
+    <a th:href="@{/categories/new}"><button type="button" class="btn btn-primary shadow mb-2 rounded">Krijo Kategori</button></a>
 </div>
 
+<div th:replace="fragments :: search_form('/categories/page/1')" />
+
+<div th:replace="fragments :: message" />
 
 <div class="text-center">
 <div class="mt-3 full-details d-flex justify-content-center">
@@ -24,26 +27,46 @@
 				</tr>								
 			</thead>
 			<tbody>
-				<tr>
-					<td>Test</td>
-					<td>Test1</td>
-					<td>Test Test</td>
-					<td>Testt Testt</td>
+				<tr th:each="cat : ${listCategories}">
+					<td>[[${cat.id}]]</td>
 					<td>
-						
+						<img th:src="@{${cat.imagePath}}" style="width: 70px" class="img-fluid"/>
+					</td>
+					<td>[[${cat.name}]]</td>
+					<td>[[${cat.alias}]]</td>
+					<td>
+						<div th:replace="fragments :: status(${cat.enabled}, 'category', '/categories/' + ${cat.id})" />
 					</td>
 
 					<td>
-						<button type="button" class="btn btn-success shadow rounded">Edit</button>
+					    <div th:replace="fragments :: edit('category', '/categories/edit/' + ${cat.id})" />
 						|
-						<button type="button" class="btn btn-danger shadow rounded">Delete</button>					
+						<div th:replace="fragments :: delete('category', ${cat.id}, '/categories/delete/' + ${cat.id}, true)" />					
 					</td>					
 				</tr>
 			</tbody>
 		</table>
 	</div>
 </div>
+
+    <div th:replace="fragments :: pagination('categories')"></div>
+	
+	<div th:replace="modal_fragment :: confirm_modal" />
 	
 	<div th:replace="fragments :: footer"></div>
+
+<script th:src="@{/js/common_list.js}"></script>	
+<script>
+moduleURL = "[[@{/categories}]]";
+
+entityName = "category";
+
+$(document).ready(function() {
+	$(".link-delete").on("click", function(e) {
+		e.preventDefault();
+		showDeleteConfirmModal($(this), 'category');
+	});
+});
+</script>
 </body>
 </html>

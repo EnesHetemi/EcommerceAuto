@@ -44,4 +44,16 @@ public class FileUploadUtil {
 			System.out.println("Drejtoria nuk mund të renditej: " + dirPath);
 		}
 	}
+	
+	
+	public static void removeDir(String dir) {
+		cleanDir(dir);
+
+		try {
+			Files.delete(Paths.get(dir));
+		} catch (IOException e) {
+			System.out.println("Drejtoria nuk mund të hiqej: " + dir);
+		}
+
+	}
 }

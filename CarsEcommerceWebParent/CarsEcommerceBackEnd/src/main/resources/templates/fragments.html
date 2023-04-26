@@ -25,10 +25,24 @@
 			th:title="'Delete this ' + ${entityName}"><button type="button" class="btn btn-danger shadow rounded">Delete</button></a>
 		</th:block>	
 	</div>
-						<a class="link-delete" th:href="@{'/users/delete/' + ${user.id}}" th:userId="${user.id}">
-						<button type="button" class="btn btn-danger shadow rounded">Delete</button></a>
+	
+	<div th:fragment="status(enabled, entityName, entityURL)" th:remove="tag">
+		<a th:if="${enabled == true}" 
+			th:href="@{${entityURL} + '/enabled/false'}"
+			th:title="'Çaktivizo këtë ' + ${entityName}"
+			><button type="button" class="btn btn-info shadow rounded">Aktiv</button></a>
+			
+		<a th:if="${enabled == false}" 
+			th:href="@{${entityURL} + '/enabled/true'}"
+			th:title="'Aktivizo këtë ' + ${entityName}"
+			><button type="button" class="btn btn-danger shadow rounded">Deaktiv</button></a>	
+	</div>
+	
+		<a th:fragment="page_link(pageNum, label)"
+		class="page-link" 
+		th:href="@{${moduleURL} + '/page/' + ${pageNum} + '?'  + ${keyword != null ? '&keyword=' + keyword : ''}}">[[${label}]]</a>
 
-    <div th:fragment="pagination(entityName)" th:remove="tag">
+   <div th:fragment="pagination(entityName)" th:remove="tag">
 	<div class="text-center m-1" th:if="${totalItems > 0}">
 		<span>Showing [[${entityName}]] # [[${startCount}]] to [[${endCount}]] of [[${totalItems}]]</span>
 	</div>
@@ -38,7 +52,7 @@
 	
 	<div th:if="${totalPages > 1}">
 		<nav>
-		  <ul class="pagination justify-content-center">
+		  <ul class="pagination justify-content-center flex-wrap">
 		    <li th:class="${currentPage > 1 ? 'page-item' : 'page-item disabled'}">
 		    	<a th:replace="fragments :: page_link(1, 'First')"></a>
 		    </li>		  
@@ -50,7 +64,6 @@
 		    	th:each="i : ${#numbers.sequence(1, totalPages)}">
 		    	<a th:replace="fragments :: page_link(${i}, ${i})"></a>
 		    </li>
-
 		    
 		    <li th:class="${currentPage < totalPages ? 'page-item' : 'page-item disabled'}">
 		    	<a th:replace="fragments :: page_link(${currentPage + 1}, 'Next')"></a>
@@ -61,11 +74,11 @@
 		    </li>		    
 		  </ul>
 		</nav>	
-	</div>
+	</div>		
 	</div>
 
-<div th:fragment="search_form_and_message()" class="d-flex justify-content-center">
-		<form th:action="@{/users/page/1}" class="form-inline m-3">
+<div th:fragment="search_form(moduleURL)" class="d-flex justify-content-center">
+		<form th:action="@{${moduleURL}}" class="form-inline m-3">
 
 			<input type="search" name="keyword" th:value="${keyword}" class="form-control shadow bg-white rounded" required/>
 			&nbsp;&nbsp;
@@ -73,16 +86,11 @@
 			&nbsp;&nbsp;
 			<input type="button" value="Clear" class="btn btn-secondary shadow rounded" onclick="clearFilter()" />
 		</form>
-		
-		
-		<div th:if="${message != null}" class="mt-4 alert alert-success text-center">
-		    [[${message}]]
-	    </div>
 	</div>
 	
-	<a th:fragment="page_link(pageNum, label)"
-		class="page-link" 
-		th:href="@{'/users/page/' + ${pageNum} + '?' + ${keyword != null ? '&keyword=' + keyword : ''}}">[[${label}]]</a>
+	<div th:fragment="message()" th:if="${message != null}" class="mt-4 alert alert-success text-center">
+		    [[${message}]]
+    </div>
 
     <div th:fragment="footer" class="text-center m-3">
 		<p>Ecommerce Auto Parts Control Panel - Copyright &copy; Ecommerce Auto Parts</p>
