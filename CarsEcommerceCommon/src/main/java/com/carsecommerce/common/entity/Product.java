@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "products")
@@ -32,6 +33,9 @@ public class Product {
 	
 	@Column(length = 4096, nullable = false, name = "other_reference")
 	private String otherReference;
+	
+	@Column(name = "main_image")
+	private String mainImage;
 
 	@Column(name = "created_time")
 	private Date createdTime;
@@ -106,6 +110,14 @@ public class Product {
 	public void setOtherReference(String otherReference) {
 		this.otherReference = otherReference;
 	}
+	
+	public String getMainImage() {
+		return mainImage;
+	}
+
+	public void setMainImage(String mainImage) {
+		this.mainImage = mainImage;
+	}
 
 	public Date getCreatedTime() {
 		return createdTime;
@@ -179,5 +191,11 @@ public class Product {
 		this.brand = brand;
 	}
 
+	@Transient
+	public String getMainImagePath() {
+		if (id == null || mainImage == null) return "/images/image-thumbnail.png";
+
+		return "/product-images/" + this.id + "/" + this.mainImage;
+	}
 
 }

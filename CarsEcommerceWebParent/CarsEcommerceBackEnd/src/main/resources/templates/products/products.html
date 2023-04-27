@@ -9,6 +9,8 @@
     <a th:href="@{/products/new}"><button type="button" class="btn btn-primary shadow mb-2 rounded">Krijo Produkt</button></a>
 </div>
 
+<div th:replace="fragments :: search_form('/products/page/1')" />
+
 <div th:replace="fragments :: message" />
 
 <div class="text-center">
@@ -18,7 +20,7 @@
 				<tr>
 					<th>Id</th>
 					<th>Foto</th>
-					<th>Emri</th>
+					<th th:replace="fragments :: column_link('/products', 'name', 'Product Name', 'none')" />
 					<th>Marka</th>
 					<th>Kategoria</th>
 					<th>Aktivizimi</th>
@@ -28,7 +30,7 @@
 			<tbody>
 				<tr th:each="product : ${listProducts}">
 					<td>[[${product.id}]]</td>
-					<td></td>
+					<td><img th:src="@{${product.mainImagePath}}" style="width: 70px" class="img-fluid" /></td>
 					<td>[[${product.name}]]</td>
 					<td>[[${product.brand.name}]]</td>
 					<td>[[${product.category.name}]]</td>
@@ -46,12 +48,20 @@
 		</table>
 	</div>
 </div>
+
+    <div th:replace="fragments :: pagination('products')"></div>
+    
+    <div th:replace="modal_fragment :: confirm_modal" />
 	
 	<div th:replace="fragments :: footer"></div>
 	
 	<script th:src="@{/js/common_list.js}"></script>
 <script type="text/javascript">
 	moduleURL = "[[@{/products}]]";
+	
+	brandModuleURL = "[[@{/brands}]]";
+	
+	entityName = "product";
 </script>
 </body>
 </html>

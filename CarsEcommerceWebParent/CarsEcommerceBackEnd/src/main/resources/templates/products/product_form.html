@@ -2,8 +2,6 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <head th:replace="fragments :: metaetj" />
-    <link rel="stylesheet" th:href="@{/richtext/richtext.min.css}" />
-	<script th:src="@{/richtext/jquery.richtext.min.js}"></script>
 </head>
 <body>
 <div class="container-fluid">
@@ -14,7 +12,7 @@
 		<h2>[[${pageTitle}]]</h2>	
 	</div>
 	
-	<form th:action="@{/products/save}" method="post" onsubmit="return checkUnique(this)"
+	<form th:action="@{/products/save}" method="post" enctype="multipart/form-data" onsubmit="return checkUnique(this)"
 		th:object="${product}">
 		<input type="hidden" th:field="*{id}" />
 	<div>
@@ -54,9 +52,10 @@
 
 </div>
 <script type="text/javascript">
+    MAX_FILE_SIZE = 502400; // 500KB
 	moduleURL = "[[@{/products}]]";
 	brandModuleURL = "[[@{/brands}]]";
-
+	
 	dropdownBrands = $("#brand");
 	dropdownCategories = $("#category");
 
@@ -109,5 +108,6 @@
 	}
 </script>
 <script th:src="@{/js/common_form.js}"></script>
+
 </body>
 </html>

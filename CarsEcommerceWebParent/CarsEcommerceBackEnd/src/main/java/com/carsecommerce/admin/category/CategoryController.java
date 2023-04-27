@@ -17,9 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.carsecommerce.admin.FileUploadUtil;
-import com.carsecommerce.admin.user.UserService;
 import com.carsecommerce.common.entity.Category;
-import com.carsecommerce.common.entity.User;
 
 @Controller
 public class CategoryController {
