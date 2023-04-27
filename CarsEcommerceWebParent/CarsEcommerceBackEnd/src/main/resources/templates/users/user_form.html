@@ -17,38 +17,38 @@
 		<div class="form-group row">
 			<label class="col-sm-4 col-form-label">Email:</label>
 			<div class="col-sm-8">
-				<input type="email" class="form-control shadow-sm p-3 mb-5 bg-white rounded" th:field="*{email}" required minlength="8" maxlength="128"  />
+				<input type="email" class="form-control shadow-sm bg-light rounded" th:field="*{email}" required minlength="8" maxlength="128"  />
 			</div>
 		</div>
 
 		<div class="form-group row">
 			<label class="col-sm-4 col-form-label">Emri:</label>
 			<div class="col-sm-8">
-				<input type="text" class="form-control shadow-sm p-3 mb-5 bg-white rounded" th:field="*{firstName}" required minlength="2" maxlength="45"  />
+				<input type="text" class="form-control shadow-sm bg-light rounded" th:field="*{firstName}" required minlength="2" maxlength="45"  />
 			</div>
 		</div>		
 
 		<div class="form-group row">
 			<label class="col-sm-4 col-form-label">Mbiemri:</label>
 			<div class="col-sm-8">
-				<input type="text" class="form-control shadow-sm p-3 mb-5 bg-white rounded" th:field="*{lastName}" required minlength="2" maxlength="45"  />
+				<input type="text" class="form-control shadow-sm bg-light rounded" th:field="*{lastName}" required minlength="2" maxlength="45"  />
 			</div>
 		</div>		
 
 		<div class="form-group row">
 			<label class="col-sm-4 col-form-label">Password:</label>
 			<div class="col-sm-8">
-				<input th:if="${user.id == null}" type="password" class="form-control shadow-sm p-3 mb-5 bg-white rounded" 
+				<input th:if="${user.id == null}" type="password" class="form-control shadow-sm bg-light rounded" 
 					th:field="*{password}" required minlength="8" maxlength="20"  />
 
-				<input th:if="${user.id != null}" type="password" class="form-control shadow-sm p-3 mb-5 bg-white rounded" 
+				<input th:if="${user.id != null}" type="password" class="form-control shadow-sm bg-light rounded" 
 					th:field="*{password}" minlength="8" maxlength="20"  />	
 			</div>
 		</div>		
 
 		<div class="form-group row">
 			<label class="col-sm-4 col-form-label">Roli:</label>
-			<div class="col-sm-8 shadow-sm p-3 mb-5 bg-white rounded">
+			<div class="col-sm-8 shadow-sm bg-light rounded">
 				<th:block th:each="role : ${listRoles}">
 				<input type="checkbox" th:field="*{roles}" 
 					th:text="${role.name}"
@@ -64,7 +64,7 @@
 		<div class="form-group row">
 			<label class="col-sm-4 col-form-label">Aktivizimi:</label>
 			<div class="col-sm-8">
-				<input type="checkbox" th:field="*{enabled}" />
+				<input type="checkbox" class="shadow-sm bg-light rounded" th:field="*{enabled}" />
 			</div>
 		</div>	
 		
@@ -73,15 +73,15 @@
 			<div class="col-sm-8">
 				<input type="hidden" th:field="*{photos}" />
 				<input type="file" id="fileImage" name="image" accept="image/png, image/jpeg"
-					class="mb-2" />
+					class="mb-2 shadow-sm bg-light rounded" />
 				<img id="thumbnail" alt="Photos preview" th:src="@{${user.photosImagePath}}"
-					class="img-fluid" />
+					class="img-fluid shadow p-3 mb-5 bg-light rounded" />
 			</div>
 		</div>		
 
 		<div class="text-center">
-			<input type="submit" value="Save" class="btn btn-primary m-3 shadow rounded" />
-			<input type="button" value="Cancel" class="btn btn-secondary shadow rounded" id="buttonCancel" />
+			<input type="submit" value="Ruaj" class="btn btn-primary m-3 shadow rounded" />
+			<input type="button" value="Anulo" class="btn btn-secondary shadow rounded" id="buttonCancel" />
 		</div>
 	</div>
 	</form>

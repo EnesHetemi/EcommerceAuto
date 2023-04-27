@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="content" th:remove="tag">
+	<div class="form-group row">
+		<label class="col-sm-2 col-form-label">Emri Produktit:</label>
+		<div class="col-sm-10">
+			<input type="text" class="form-control shadow-sm bg-light rounded" th:field="*{name}" required minlength="3" maxlength="256"  />
+		</div>
+	</div>
+	
+	<div class="form-group row">
+		<label class="col-sm-2 col-form-label">Kodi i Produktit:</label>
+		<div class="col-sm-10">
+			<input type="text" class="form-control shadow-sm bg-light rounded" th:field="*{productCode}" required minlength="3" maxlength="256"  />
+		</div>
+	</div>
+
+	<div class="form-group row">
+		<label class="col-sm-2 col-form-label">Pseudonimi:</label>
+		<div class="col-sm-10">
+			<input type="text" class="form-control shadow-sm bg-light rounded" th:field="*{alias}"
+				minlength="3" maxlength="256"  />
+		</div>
+	</div>
+
+	<div class="form-group row">
+		<label class="col-sm-2 col-form-label">Marka:</label>
+		<div class="col-sm-10">
+			<select th:field="*{brand}" class="form-control shadow-sm bg-light rounded" required>
+				<th:block th:each="brand : ${listBrands}">
+					<option th:value="${brand.id}">[[${brand.name}]]</option>
+				</th:block>
+			</select>
+		</div>
+	</div>
+
+	<div class="form-group row">
+		<label class="col-sm-2 col-form-label">Kategoria:</label>
+		<div class="col-sm-10">
+			<select th:field="*{category}" class="form-control shadow-sm bg-light rounded" required>
+
+			</select>
+		</div>
+	</div>
+
+	<div class="form-group row">
+		<label class="col-sm-2 col-form-label">Aktivizimi:</label>
+		<div class="col-sm-10">
+			<input type="checkbox" class="shadow-sm bg-light rounded" th:field="*{enabled}" />
+		</div>
+	</div>
+	<div class="form-group row">
+		<label class="col-sm-2 col-form-label">Stoku:</label>
+		<div class="col-sm-10">
+			<input type="checkbox" class="shadow-sm bg-light rounded" th:field="*{inStock}" />
+		</div>
+	</div>
+
+	<div class="form-group row">
+		<label class="col-sm-2 col-form-label">Qmimi:</label>
+		<div class="col-sm-10">
+			<input type="number" class="form-control shadow-sm bg-light rounded" th:field="*{price}"/>
+		</div>
+	</div>
+
+	<div class="form-group row">
+		<label class="col-sm-2 col-form-label">Zbritje %:</label>
+		<div class="col-sm-10">
+			<input type="number" class="form-control shadow-sm bg-light rounded" th:field="*{discountPercent}"/>
+		</div>
+	</div>	
+</div>		
+</body>
+</html>

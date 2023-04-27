@@ -67,7 +67,7 @@ public class BrandController {
 
 		model.addAttribute("listCategories", listCategories);
 		model.addAttribute("brand", new Brand());
-		model.addAttribute("pageTitle", "Krijo mark te re");
+		model.addAttribute("pageTitle", "Krijo markë te re");
 
 		return "brands/brand_form";		
 	}
@@ -89,7 +89,7 @@ public class BrandController {
 			brandService.save(brand);
 		}
 
-		ra.addFlashAttribute("message", "The brand has been saved successfully.");
+		ra.addFlashAttribute("message", "Marka është ruajtur me sukses.");
 		return "redirect:/brands";		
 	}
 
@@ -102,7 +102,7 @@ public class BrandController {
 
 			model.addAttribute("brand", brand);
 			model.addAttribute("listCategories", listCategories);
-			model.addAttribute("pageTitle", "Edit Brand (ID: " + id + ")");
+			model.addAttribute("pageTitle", "Ndrysho markën (ID: " + id + ")");
 
 			return "brands/brand_form";			
 		} catch (BrandNotFoundException ex) {
@@ -121,7 +121,7 @@ public class BrandController {
 			FileUploadUtil.removeDir(brandDir);
 
 			redirectAttributes.addFlashAttribute("message", 
-					"The brand ID " + id + " has been deleted successfully");
+					"Marka me " + id + " është fshirë me sukses");
 		} catch (BrandNotFoundException ex) {
 			redirectAttributes.addFlashAttribute("message", ex.getMessage());
 		}

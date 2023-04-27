@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="content" th:remove="tag">
+	<div class="m-2">
+		<label>Numrat OEM:</label>
+		<textarea class="form-control shadow-sm bg-light rounded" th:field="*{numberOem}" rows="8" required></textarea>
+	</div>
+
+	<div class="m-2">
+		<label>Referencat Tjera:</label>
+		<textarea class="form-control shadow-sm bg-light rounded" th:field="*{otherReference}" rows="8" required></textarea>
+	</div>	
+</div>		
+</body>
+</html>
