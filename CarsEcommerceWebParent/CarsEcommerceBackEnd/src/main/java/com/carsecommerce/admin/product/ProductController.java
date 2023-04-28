@@ -83,11 +83,13 @@ public class ProductController {
 
 	@PostMapping("/products/save")
 	public String saveProduct(Product product, RedirectAttributes ra,
-			@RequestParam("fileImage") MultipartFile multipartFile) throws IOException {
+			@RequestParam("fileImage") MultipartFile multipartFile, @RequestParam(name = "detailNames", required = false) String[] detailNames,
+			@RequestParam(name = "detailValues", required = false) String[] detailValues) throws IOException {
 
 		if (!multipartFile.isEmpty()) {
 			String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
 			product.setMainImage(fileName);
+			setProductDetails(detailNames, detailValues, product);
 
 			Product savedProduct = productService.save(product);
 			String uploadDir = "../product-images/" + savedProduct.getId();
@@ -140,6 +142,22 @@ public class ProductController {
 		return "redirect:/products";
 	}
 	
+	@GetMapping("/products/detail/{id}")
+	public String viewProductDetails(@PathVariable("id") Integer id, Model model,
+			RedirectAttributes ra) {
+		try {
+			Product product = productService.get(id);			
+			model.addAttribute("product", product);		
+
+			return "products/product_detail_modal";
+
+		} catch (ProductNotFoundException e) {
+			ra.addFlashAttribute("message", e.getMessage());
+
+			return "redirect:/products";
+		}
+	}
+	
 	@GetMapping("/products/{id}/enabled/{status}")
 	public String updateCategoryEnabledStatus(@PathVariable("id") Integer id,
 			@PathVariable("status") boolean enabled, RedirectAttributes redirectAttributes) {
@@ -149,5 +167,18 @@ public class ProductController {
 		redirectAttributes.addFlashAttribute("message", message);
 
 		return "redirect:/products";
+	}
+	
+	private void setProductDetails(String[] detailNames, String[] detailValues, Product product) {
+		if (detailNames == null || detailNames.length == 0) return;
+
+		for (int count = 0; count < detailNames.length; count++) {
+			String name = detailNames[count];
+			String value = detailValues[count];
+
+			if (!name.isEmpty() && !value.isEmpty()) {
+				product.addDetail(name, value);
+			}
+		}
 	}
 }

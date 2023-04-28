@@ -1,0 +1,130 @@
+<div class="modal-header">
+	<h4 class="modal-title">Detajet e Produktit</h4>
+	<button type="button" class="close" data-dismiss="modal">&times;</button>
+</div>
+
+<div>
+	<ul class="nav" id="myTab" role="tablist">
+	  <li class="nav-item">
+	    <a class="nav-link active shadow-sm bg-light rounded" data-toggle="tab" href="#overview" role="tab">Te pergjithshmet</a>
+	  </li>
+	  <li class="nav-item">
+	    <a class="nav-link shadow-sm bg-light rounded" data-toggle="tab" href="#description" role="tab">Numrat OEM dhe Te tjere</a>
+	  </li>
+	  <li class="nav-item">
+	    <a class="nav-link shadow-sm bg-light rounded" data-toggle="tab" href="#details" role="tab">Detajet</a>
+	  </li>
+	</ul>
+</div>
+
+<div class="tab-content">
+<div class="tab-pane active p-3" id="overview" role="tabpanel">
+<div class="form-group row">
+		<label class="col-sm-2 col-form-label">Emri Produktit:</label>
+		<div class="col-sm-10">
+			<input type="text" class="form-control shadow-sm bg-light rounded" th:value="${product.name}" readonly  />
+		</div>
+	</div>
+	
+	<div class="form-group row">
+		<label class="col-sm-2 col-form-label">Kodi i Produktit:</label>
+		<div class="col-sm-10">
+			<input type="text" class="form-control shadow-sm bg-light rounded" th:value="${product.productCode}" readonly  />
+		</div>
+	</div>
+
+	<div class="form-group row">
+		<label class="col-sm-2 col-form-label">Pseudonimi:</label>
+		<div class="col-sm-10">
+			<input type="text" class="form-control shadow-sm bg-light rounded" th:value="${product.alias}" readonly />
+		</div>
+	</div>
+
+	<div class="form-group row">
+		<label class="col-sm-2 col-form-label">Marka:</label>
+		<div class="col-sm-10">
+			<input type="text" class="form-control shadow-sm bg-light rounded" th:value="${product.brand.name}" readonly />
+		</div>
+	</div>
+
+	<div class="form-group row">
+		<label class="col-sm-2 col-form-label">Kategoria:</label>
+		<div class="col-sm-10">
+			<input type="text" class="form-control shadow-sm bg-light rounded" th:value="${product.category.name}" readonly />
+		</div>
+	</div>
+	
+	<div class="form-group row">
+			<div class="col border m-3 p-2 shadow-sm bg-light rounded">
+				<div><label>Foto: [[${product.mainImage}]]</label></div>
+				<div class="m-2">
+					<img alt="Main image preview" class="img-fluid"
+						th:src="@{${product.mainImagePath}}"/>
+				</div>
+			</div>
+		</div>		
+
+	<div class="form-group row">
+		<label class="col-sm-2 col-form-label">Aktivizimi:</label>
+		<div class="col-sm-10">
+			<input type="checkbox" class="shadow-sm bg-light rounded" th:checked="${product.enabled}" onclick="return false;" />
+		</div>
+	</div>
+	<div class="form-group row">
+		<label class="col-sm-2 col-form-label">Stoku:</label>
+		<div class="col-sm-10">
+			<input type="checkbox" class="shadow-sm bg-light rounded" th:checked="${product.inStock}" onclick="return false;" />
+		</div>
+	</div>
+
+	<div class="form-group row">
+		<label class="col-sm-2 col-form-label">Qmimi:</label>
+		<div class="col-sm-10">
+			<input type="number" class="form-control shadow-sm bg-light rounded" th:value="${product.price}" readonly />
+		</div>
+	</div>
+
+	<div class="form-group row">
+		<label class="col-sm-2 col-form-label">Zbritje %:</label>
+		<div class="col-sm-10">
+			<input type="number" class="form-control shadow-sm bg-light rounded" th:value="${product.discountPercent}" readonly/>
+		</div>
+	</div>	
+</div>
+
+<div class="tab-pane" id="description" role="tabpanel">
+    <div class="m-2">
+		<label>Numrat OEM:</label>
+		<textarea class="form-control shadow-sm bg-light rounded" th:utext="${product.numberOem}" readonly rows="8"></textarea>
+	</div>
+
+	<div class="m-2">
+		<label>Referencat Tjera:</label>
+		<textarea class="form-control shadow-sm bg-light rounded" th:utext="${product.otherReference}" readonly rows="8"></textarea>
+	</div>	
+</div>
+
+<div class="tab-pane p-3" id="details" role="tabpanel">
+		<div>
+			<table class="table table-bordered table-striped table-hover table-responsive-xl shadow rounded">
+				<thead class="table-info">
+					<tr>
+						<th width="40%">Emri</th>
+						<th>Vlera</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="detail: ${product.details}">
+						<td>[[${detail.name}]]</td>
+						<td>[[${detail.value}]]</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	  </div>
+	</div>
+</div>
+
+<div class="modal-footer">
+	<button type="button" class="btn btn-danger" data-dismiss="modal">Mbylle</button>
+</div>

@@ -18,18 +18,20 @@
 		<table class="table table-bordered table-striped table-hover table-responsive-xl w-75 shadow p-3 mb-5 bg-white rounded">
 			<thead class="table-info">
 				<tr>
-					<th>Id</th>
+                    <th th:replace="fragments :: column_link('/products', 'productCode', 'Kodi i Produktit', 'none')" />
 					<th>Foto</th>
-					<th th:replace="fragments :: column_link('/products', 'name', 'Product Name', 'none')" />
-					<th>Marka</th>
-					<th>Kategoria</th>
+					<th th:replace="fragments :: column_link('/products', 'name', 'Emri', 'none')" />
+					<th th:replace="fragments :: column_link('/products', 'brand', 'Marka', 'none')" />
+					<th th:replace="fragments :: column_link('/products', 'category', 'Kategoria', 'none')" />
 					<th>Aktivizimi</th>
 					<th>Veprime</th>
 				</tr>								
 			</thead>
 			<tbody>
 				<tr th:each="product : ${listProducts}">
-					<td>[[${product.id}]]</td>
+					<td><a class="link-detail" th:href="@{'/products/detail/' + ${product.id}}"
+							title="Shikoni detajet e këtij produkti"
+							>[[${product.productCode}]]</a></td>
 					<td><img th:src="@{${product.mainImagePath}}" style="width: 70px" class="img-fluid" /></td>
 					<td>[[${product.name}]]</td>
 					<td>[[${product.brand.name}]]</td>
@@ -52,6 +54,13 @@
     <div th:replace="fragments :: pagination('products')"></div>
     
     <div th:replace="modal_fragment :: confirm_modal" />
+    
+    <div class="modal fade" id="detailModal">
+		<div class="modal-dialog modal-xl">
+			<div class="modal-content">
+			</div>
+		</div>
+	</div>
 	
 	<div th:replace="fragments :: footer"></div>
 	
@@ -60,6 +69,12 @@
 	moduleURL = "[[@{/products}]]";
 	
 	brandModuleURL = "[[@{/brands}]]";
+	
+	$(".link-detail").on("click", function(e) {
+		e.preventDefault();
+		linkDetailURL = $(this).attr("href");
+		$("#detailModal").modal("show").find(".modal-content").load(linkDetailURL);
+	});
 	
 	entityName = "product";
 </script>

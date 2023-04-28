@@ -35,10 +35,17 @@
 		  <div class="tab-pane" id="description" role="tabpanel">
 		  	<div th:replace="products/product_oemothernumbers :: content"></div>
 		  </div>
-		  <div class="tab-pane shadow rounded" id="details" role="tabpanel">Detajet</div>
+		  <div class="tab-pane" id="details" role="tabpanel">
+		  	<div th:replace="products/product_details :: content"></div>
+		  	
+		  	<div class="d-flex justify-content-center mt-3">
+		  		<input type="button" class="btn btn-secondary" value="Krijo detaj te ri"
+		  			onclick="addNextDetailSection()" />
+		  	</div>	
+		  </div>
 		</div>	
 	</div>
-	<div class="text-center">
+	<div class=" mt-3 text-center">
 		<input type="submit" value="Ruaj" class="btn btn-primary m-3 shadow rounded" />
 		<input type="button" value="Anulo" class="btn btn-secondary shadow rounded" id="buttonCancel" />
 	</div>
@@ -95,19 +102,19 @@
 			if (response == "OK") {
 				form.submit();
 			} else if (response == "Duplicate") {
-				showWarningModal("There is another product having the name " + productName);	
+				showWarningModal("Ekziston një produkt tjetër që ka emrin " + productName);	
 			} else {
-				showErrorModal("Unknown response from server");
+				showErrorModal("Përgjigje e panjohur nga serveri");
 			}
 
 		}).fail(function() {
-			showErrorModal("Could not connect to the server");
+			showErrorModal("Nuk mund të lidhej me serverin");
 		});
 
 		return false;
 	}
 </script>
 <script th:src="@{/js/common_form.js}"></script>
-
+<script th:src="@{/js/product_form_details.js}"></script>
 </body>
 </html>
