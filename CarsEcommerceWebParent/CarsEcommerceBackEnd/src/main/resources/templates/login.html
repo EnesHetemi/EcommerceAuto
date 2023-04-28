@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: metaetj" />
+<body class="container-fluid">
+
+<div th:replace="fragments :: message" />
+
+    <div class="mt-4 navbar-brand d-flex justify-content-center">
+		<img style="width:200px; height:150px;" th:src="@{/images/llogo.jpg}" />
+	</div>
+
+	<form th:action="@{/login}" method="post" style="max-width: 350px; margin: 0 auto">
+	    <div th:if="${param.error}">
+			<p class="mt-4 text-center text-danger">[[${session.SPRING_SECURITY_LAST_EXCEPTION.message}]]</p>
+		</div>
+		
+		<div th:if="${param.logout}">
+			<p class="mt-4 text-center text-warning">You have been logged out.</p>
+		</div>
+		<div class="mt-4 shadow p-3 mb-5 bg-white rounded">
+			<p class="font-weight-bold text-center text-info">Login për Auto Pjesë</p>
+			<p>
+				<input type="email" name="email" class="form-control shadow-sm bg-light rounded" placeholder="E-mail" required />
+			</p>
+			<p>
+				<input type="password" name="password" class="form-control shadow-sm bg-light rounded" placeholder="Password" required />
+			</p>
+			<p class="d-flex justify-content-center text-info">
+				<input class="shadow-sm rounded" type="checkbox" name="remember-me" />&nbsp;Më Kujto
+			</p>
+			<p class="d-flex justify-content-center">
+				<input type="submit" value="Login" class="btn btn-primary shadow-sm rounded" />
+			</p>			
+		</div>
+	</form>
+	
+	<div th:replace="fragments :: footer"></div>
+	
+</body>
+</html>
