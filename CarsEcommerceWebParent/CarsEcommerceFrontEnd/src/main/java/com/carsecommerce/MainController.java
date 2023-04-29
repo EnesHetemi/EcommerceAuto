@@ -1,4 +1,4 @@
-package com.carsecommerce.site;
+package com.carsecommerce;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -6,8 +6,4 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class MainController {
 
-	@GetMapping("")
-	public String viewHomePage() {
-		return "index";
-	}
 }

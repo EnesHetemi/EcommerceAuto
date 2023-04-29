@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: metaetj" />
+<body>
+
+<div th:replace="navigation :: menu"></div>
+
+<div th:replace="fragments :: search_form('/products/page/1')" />
+
+<div class="container mydiv mt-4">
+    <div class="row">
+        <div class="rounded p-3 shadow p-3 mb-5 bg-white rounded col-md-4 mt-4" th:each="product : ${listProducts}">
+            <!-- bbb_deals -->
+            <div class="bbb_deals">
+                            <div class="bbb_deals_title"><div class="bbb_deals_item_name"><a th:href="@{'/products/product/' + ${product.alias}}">[[${product.productCode}]]</a></div></div>
+                <div class="bbb_deals_slider_container">
+                    <div class=" bbb_deals_item">
+                        <div class="bbb_deals_image" style="height:65px"><img style="height:90px" th:src="@{${product.mainImagePath}}" th:alt="@{${product.name}}"></div>
+                        <div class="bbb_deals_content">
+                            <div class="bbb_deals_info_line d-flex flex-row justify-content-start">
+                                <div class="bbb_deals_item_category"><strong>Brand: </strong>[[${product.brand.name}]]</div>
+                                <div class="bbb_deals_item_price_a ml-auto" th:if="${product.discountPercent > 0}"><strong>Qmimi Baze: </strong><strike>
+				                  <span th:if="${product.discountPercent > 0}">[[${product.price}]] €</span>
+				                  <del th:if="${product.discountPercent > 0}"><span>[[${product.price}]] €</span></del></strike></div>
+                            </div>
+                            <div class="bbb_deals_info_line d-flex flex-row justify-content-start">
+                            <div th:if="${product.inStock}" style="color: green;"><span>Ka Stok</span></div>
+                            <div th:unless="${product.inStock}" style="color: red;"><span>Nuk Ka Stok</span></div>
+                                 <div class="bbb_deals_item_price ml-auto" th:if="${product.discountPercent > 0}"><strong>Qmimi: </strong>
+				                   <span style="font-size: larger; color: darkred">[[${product.discountPrice}]] €</span></div>
+				                 <div class="bbb_deals_item_price ml-auto" th:if="${product.discountPercent <= 0}"><strong>Qmimi: </strong>
+				                   <span style="font-size: larger; color: darkred">[[${product.price}]] €</span></div>
+                            </div>
+                            
+                            <div class="available">
+                                <div class="available_line d-flex flex-row justify-content-center">
+                                    <a class="text-dark" th:href="@{'/products/product/' + ${product.alias}}"><div class="available_title"><button type="button" class="btn btn-info shadow rounded">Shiko Detajet</button></button></div></a>
+                                </div>
+                                <div class="available_bar"><span style="width:17%"></span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+        </div>
+
+    <div th:replace="fragments :: pagination('products')"></div>
+	
+	<div th:replace="fragments :: footer"></div>
+	
+	<script th:src="@{/js/common_list.js}"></script>
+<script type="text/javascript">
+	moduleURL = "[[@{/products}]]";
+	
+	entityName = "product";
+</script>
+</body>
+</html>

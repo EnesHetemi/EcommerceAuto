@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="metaetj">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0">
+
+	<title>Ecommerce</title>
+
+	<link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+	<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />		
+	<script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}" ></script>
+	<script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}" ></script>
+</head>
+<body>
+	  <a th:fragment="page_link(pageNum, label)"
+		class="page-link" 
+		th:href="@{${moduleURL} + '/page/' + ${pageNum} + '?'  + ${keyword != null ? '&keyword=' + keyword : ''}}">[[${label}]]</a>
+
+   <div th:fragment="pagination(entityName)" th:remove="tag">
+	<div class="text-center m-1" th:if="${totalItems > 0}">
+		<span>Showing [[${entityName}]] # [[${startCount}]] to [[${endCount}]] of [[${totalItems}]]</span>
+	</div>
+	<div class="text-center m-1" th:unless="${totalItems > 0}">
+		<span>No [[${entityName}]] found</span>
+	</div>
+	
+	<div th:if="${totalPages > 1}">
+		<nav>
+		  <ul class="pagination justify-content-center flex-wrap">
+		    <li th:class="${currentPage > 1 ? 'page-item' : 'page-item disabled'}">
+		    	<a th:replace="fragments :: page_link(1, 'First')"></a>
+		    </li>		  
+		    <li th:class="${currentPage > 1 ? 'page-item' : 'page-item disabled'}">
+		    	<a th:replace="fragments :: page_link(${currentPage - 1}, 'Previous')"></a>
+		    </li>
+		    
+		     <li class="page-item disabled" th:if="${currentPage - 2 > 1}">
+               <a class="page-link" href="#">...</a>
+             </li>
+		    
+		    <li th:class="${currentPage != i ? 'page-item': 'page-item active'}" 
+		    	th:each="i : ${#numbers.sequence(1, totalPages)}">
+		    	<a th:replace="fragments :: page_link(${i}, ${i})"></a>
+		    </li>
+		    
+		    <li class="page-item disabled" th:if="${currentPage + 2 < totalPages}">
+              <a class="page-link" href="#">...</a>
+            </li>
+		    
+		    <li th:class="${currentPage < totalPages ? 'page-item' : 'page-item disabled'}">
+		    	<a th:replace="fragments :: page_link(${currentPage + 1}, 'Next')"></a>
+		    </li>
+		    
+		    <li th:class="${currentPage < totalPages ? 'page-item' : 'page-item disabled'}">
+		    	<a th:replace="fragments :: page_link(${totalPages}, 'Last')"></a>
+		    </li>		    
+		  </ul>
+		</nav>	
+	</div>		
+	</div>
+
+<div th:fragment="search_form(moduleURL)" class="mt-4 d-flex justify-content-center">
+		<form th:action="@{${moduleURL}}" class="form-inline m-3">
+
+			<input type="search" name="keyword" th:value="${keyword}" class="form-control shadow bg-white rounded" required/>
+			&nbsp;&nbsp;
+			<input type="submit" value="Search" class="btn btn-primary shadow rounded" />
+			&nbsp;&nbsp;
+			<input type="button" value="Clear" class="btn btn-secondary shadow rounded" onclick="clearFilter()" />
+		</form>
+	</div>
+	
+	<div th:fragment="message()" th:if="${message != null}" class="mt-4 alert alert-success text-center">
+		    [[${message}]]
+    </div>
+
+    <div th:fragment="footer" class="text-center m-3">
+		<p>Ecommerce Auto Parts - Copyright &copy; Ecommerce Auto Parts</p>
+	</div>
+
+</body>
+</html>
