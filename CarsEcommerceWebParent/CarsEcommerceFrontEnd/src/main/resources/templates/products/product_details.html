@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<div th:fragment="content" th:remove="tag">
+     <div class="row">
+		<div class="col-12">
+			<div><hr/></div>
+			<div>
+				<h3 class="mt-4 font-weight-bold text-center text-info">Detajet e Produktit:</h3>
+			</div>
+			<th:block th:each="detail : ${product.details}">
+			<div class="d-flex justify-content-center">
+				<b class="text-info">[[${detail.name}]]: </b>
+				<span class="text-primary shadow-sm rounded"> [[${detail.value}]]</span>
+			</div>
+			</th:block>
+		</div>
+	</div>
+</div>
+</body>
+</html>

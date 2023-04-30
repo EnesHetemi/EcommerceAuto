@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="content" th:remove="tag">
+	<div class="m-2">
+		<label class="shadow-sm rounded text-info">Numrat OEM:</label>
+		<div th:utext="${product.numberOem}"></div>
+	</div>
+
+	<div class="m-2">
+		<label class="shadow-sm rounded text-info">Referencat Tjera:</label>
+		<div th:utext="${product.otherReference}"></div>
+	</div>	
+</div>		
+</body>
+</html>

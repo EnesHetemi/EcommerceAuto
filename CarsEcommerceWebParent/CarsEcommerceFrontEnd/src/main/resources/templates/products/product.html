@@ -7,15 +7,15 @@
 
 <div th:replace="fragments :: search_form('/products/page/1')" />
 
-<div class="container mydiv mt-4">
+<div class="container mydiv mt-3">
     <div class="row">
         <div class="rounded p-3 shadow p-3 mb-5 bg-white rounded col-md-4 mt-4" th:each="product : ${listProducts}">
             <!-- bbb_deals -->
             <div class="bbb_deals">
-                            <div class="bbb_deals_title"><div class="bbb_deals_item_name"><a th:href="@{'/products/product/' + ${product.alias}}">[[${product.productCode}]]</a></div></div>
+                            <div class="bbb_deals_title"><div class="bbb_deals_item_name"><a th:href="@{'/product/' + ${product.alias}}">[[${product.productCode}]]</a></div></div>
                 <div class="bbb_deals_slider_container">
                     <div class=" bbb_deals_item">
-                        <div class="bbb_deals_image" style="height:65px"><img style="height:90px" th:src="@{${product.mainImagePath}}" th:alt="@{${product.name}}"></div>
+                        <div class="bbb_deals_image"><img style="width:100%; height:260px" th:src="@{${product.mainImagePath}}" th:alt="@{${product.name}}"></div>
                         <div class="bbb_deals_content">
                             <div class="bbb_deals_info_line d-flex flex-row justify-content-start">
                                 <div class="bbb_deals_item_category"><strong>Brand: </strong>[[${product.brand.name}]]</div>
@@ -34,7 +34,7 @@
                             
                             <div class="available">
                                 <div class="available_line d-flex flex-row justify-content-center">
-                                    <a class="text-dark" th:href="@{'/products/product/' + ${product.alias}}"><div class="available_title"><button type="button" class="btn btn-info shadow rounded">Shiko Detajet</button></button></div></a>
+                                    <a class="text-dark" th:href="@{'/product/' + ${product.alias}}"><div class="available_title"><button type="button" class="btn btn-info shadow rounded">Shiko Detajet</button></button></div></a>
                                 </div>
                                 <div class="available_bar"><span style="width:17%"></span></div>
                             </div>

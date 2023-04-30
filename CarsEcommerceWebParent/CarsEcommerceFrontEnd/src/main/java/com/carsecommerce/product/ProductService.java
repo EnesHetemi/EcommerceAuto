@@ -34,4 +34,13 @@ public class ProductService {
 
 		return repo.findAll(pageable);		
 	}
+	
+	public Product getProduct(String alias) throws ProductNotFoundException {
+		Product product = repo.findByAlias(alias);
+		if (product == null) {
+			throw new ProductNotFoundException("Nuk mund të gjeja asnjë produkt me pseudonim " + alias);
+		}
+
+		return product;
+	}
 }

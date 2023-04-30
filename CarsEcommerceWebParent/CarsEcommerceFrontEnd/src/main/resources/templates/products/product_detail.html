@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: metaetj" />
+<body>
+<div class="container-fluid">
+	<div th:replace="navigation :: menu"></div>
+
+
+	<div class="row mt-5">
+		<div class="col-sm">
+			<div>
+				<img th:src="@{${product.mainImagePath}}" th:alt="@{${product.productCode}}" class="img-fluid shadow rounded" style="width:600px; height:300px;" />
+			</div>		
+		</div>
+		<div class="col-sm">
+			<div>
+				<h2 class="text-info">[[${product.productCode}]]</h2>
+			</div>
+			<div>
+				<span><span class="text-info">Marka: </span> <span class="shadow-sm rounded">[[${product.brand.name}]]</span></span>
+			</div>
+			
+			<div class="mt-3">
+				<span><span class="text-info">Kategoria: </span> <span class="shadow-sm rounded">[[${product.category.name}]]</span></span>
+			</div>
+			
+			<div class="mt-3">
+				<span class="text-info">Qmimi Bazë: </span>
+				<span class="shadow-sm rounded" th:if="${product.discountPercent <= 0}">[[${product.price}]] €</span>
+				<del class="shadow-sm rounded" th:if="${product.discountPercent > 0}"><span>[[${product.price}]] €</span></del>
+			</div>
+			<div th:if="${product.discountPercent > 0}">
+				<span class="text-info">Qmimi: </span>
+				<span class="shadow-sm rounded" style="font-size: larger; color: darkred">[[${product.discountPrice}]] €</span>
+				([[${product.discountPercent}]] % off)
+			</div>
+			<div class="mt-3 text-info">Përshkrimi: </div>
+			<div class="shadow-sm rounded" th:utext="${product.name}"></div>			
+		</div>
+		<div class="col-sm-2">
+			<div>
+				<span th:if="${product.inStock}" class="text-success"><b>Në Stok</b></span>
+				<span th:unless="${product.inStock}" class="text-danger"><b>Jashtë Stokut</b></span>
+			</div>
+			<div class="mt-2">
+				<input type="text" size="5" value="1" />
+			</div>
+			<div class="mt-3">
+				<input type="button" value="Add to Cart" class="btn btn-primary shadow rounded bg-info" />
+			</div>
+		</div>
+	</div>
+	
+	
+	<div class="shadow rounded mt-5">
+
+	<div>
+		<ul class="nav" id="myTab" role="tablist">
+		  <li class="nav-item">
+		    <a class="nav-link shadow-sm bg-light rounded" data-toggle="tab" href="#description" role="tab">Numrat OEM dhe Te tjere</a>
+		  </li>
+		  <li class="nav-item">
+		    <a class="nav-link shadow-sm bg-light rounded" data-toggle="tab" href="#details" role="tab">Detajet</a>
+		  </li>
+		</ul>
+
+		<div class="tab-content">
+		  <div class="tab-pane active" id="description" role="tabpanel">
+		  	<div th:replace="products/product_oemothernumbers :: content"></div>
+		  </div>
+		  <div class="tab-pane" id="details" role="tabpanel">
+		  	<div th:replace="products/product_details :: content"></div>
+		  </div>
+		</div>	
+	</div>
+	
+	</div>
+
+</div>
+
+	<div th:replace="fragments :: footer"></div>
+</div>	
+</body>
+</html>

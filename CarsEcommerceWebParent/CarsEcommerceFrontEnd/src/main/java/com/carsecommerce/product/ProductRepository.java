@@ -16,4 +16,7 @@ public interface ProductRepository extends PagingAndSortingRepository<Product, I
 			+ "OR p.brand.name LIKE %?1% "
 			+ "OR p.category.name LIKE %?1%")
 	public Page<Product> findAll(String keyword, Pageable pageable);
+	
+	public Product findByAlias(String alias);
+	
 }

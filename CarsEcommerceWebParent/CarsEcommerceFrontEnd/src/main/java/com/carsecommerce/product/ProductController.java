@@ -47,4 +47,19 @@ public class ProductController {
 
 		return "products/product";
 	}
+	
+	@GetMapping("/product/{product_alias}")
+	public String viewProductDetail(@PathVariable("product_alias") String alias, Model model) {
+
+		try {
+			Product product = productService.getProduct(alias);
+
+			model.addAttribute("product", product);
+			model.addAttribute("pageTitle", product.getName());
+
+			return "products/product_detail";
+		} catch (ProductNotFoundException e) {
+			return "error/404";
+		}
+	}
 }
