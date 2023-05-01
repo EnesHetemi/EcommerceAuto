@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: metaetj" />
+<body>
+<div class="container-fluid">
+	<div th:replace="navigation :: menu"></div>
+
+	<div>&nbsp;</div>
+
+	<div class="text-center">
+		<h2 class="mt-3 text-info shadow-sm bg-light rounded">Regjistrimi i Konsumatorit</h2>
+		<h4 class="mt-4 text-info shadow-sm bg-light rounded">Ju jeni regjistruar me sukses si konsumator</h4>
+		<p><a class="mt-4 btn btn-primary shadow rounded" th:href="@{/login}">Kyqu</a></p>
+	</div>
+
+	<div>&nbsp;</div>
+
+	<div th:replace="fragments :: footer"></div>
+</div>	
+</body>
+</html>

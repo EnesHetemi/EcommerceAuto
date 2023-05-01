@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: metaetj" />
+<body>
+<div class="container-fluid">
+	<div th:replace="navigation :: menu"></div>
+	
+<div class="mt-4 shadow p-3 mb-5 bg-white rounded">
+	<div class="mt-4 font-weight-bold text-center text-info">
+		<h2>[[${pageTitle}]]</h2>
+	</div>
+
+	<form th:action="@{/create_customer}" method="post" th:object="${customer}"
+		style="max-width: 400px; margin: 0 auto"
+		onsubmit="return checkEmailUnique(this);">
+		<input type="hidden" th:field="*{id}" />
+	<div class="mt-4 shadow p-3 mb-5 bg-white rounded">
+		<p>
+			<input type="text" th:field="*{firstName}" class="form-control shadow-sm bg-light rounded" maxlength="45" minlength="2" placeholder="Emri" required />
+		</p>
+		<p>
+			<input type="text" th:field="*{lastName}"class="form-control shadow-sm bg-light rounded" maxlength="45" minlength="2" placeholder="Mbiemri" required />
+		</p>
+		
+		<p>
+			<input type="email" th:field="*{email}" class="form-control shadow-sm bg-light rounded" maxlength="45" minlength="8" placeholder="Email" required />
+		</p>
+		<p>
+			<input type="password" th:field="*{password}"class="form-control shadow-sm bg-light rounded" maxlength="64" minlength="6" placeholder="Fjalekalimi" required oninput="checkPasswordMatch(document.getElementById('confirmPassword'))" />
+		</p>
+		
+		<p>
+			<input type="password" id="confirmPassword" class="form-control shadow-sm bg-light rounded" maxlength="64" minlength="6" placeholder="Rishkruaj Fjalekalimin" required oninput="checkPasswordMatch(this)" />
+		</p>
+		
+		<p>
+			<input type="number" th:field="*{phoneNumber}" class="form-control shadow-sm bg-light rounded" maxlength="15" minlength="8" placeholder="Numri i Telefonit" required />
+		</p>
+        <p>
+			<input type="text" th:field="*{addressLine1}" class="form-control shadow-sm bg-light rounded" maxlength="64" minlength="3" placeholder="Adresa 1" required />
+		</p>
+		
+		<p>
+			<input type="text" th:field="*{addressLine2}" class="form-control shadow-sm bg-light rounded" maxlength="64" minlength="3" placeholder="Adresa 2" />
+		</p>
+		
+		<p>
+			<input type="text" th:field="*{city}" class="form-control shadow-sm bg-light rounded" maxlength="45" minlength="2" placeholder="Qyteti" required />
+		</p>
+		
+		<div class="text-center">
+           <span>Jeni te regjistruar, kyquni: <a class="shadow-sm bg-light rounded" th:href="@{/login}">Kyqu</a></span>
+        </div>
+        
+		<div class="mt-4 text-center">
+			<input type="submit" value="Krijo" class="btn btn-primary shadow rounded" />
+		</div>
+	</div>
+	</form>
+
+</div>
+	<div th:replace="fragments :: modal_dialog"></div>
+	<div th:replace="fragments :: footer"></div>
+</div>	
+
+<script th:src="@{/js/common.js}"></script>
+<script type="text/javascript">
+	contextPath = "[[@{/}]]";
+
+	function checkEmailUnique(form) {
+		url = contextPath + "customers/check_unique_email";
+		customerEmail = $("#email").val();
+		csrfValue = $("input[name='_csrf']").val();
+
+		params = {email: customerEmail, _csrf: csrfValue};
+
+		$.post(url, params, function(response) {
+			if (response == "OK") {
+				form.submit();
+			} else if (response == "Duplicated") {
+				showWarningModal("Ekziston një konsumator tjetër që ka emailin " + customerEmail);
+			} else {
+				showErrorModal("Përgjigje e panjohur nga serveri");
+			}
+		}).fail(function() {
+			showErrorModal("Nuk mund të lidhej me serverin");
+		});
+
+		return false;
+	}	
+</script>
+</body>
+</html>
