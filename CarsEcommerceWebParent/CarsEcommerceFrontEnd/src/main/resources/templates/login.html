@@ -10,6 +10,10 @@
     <div class="mt-4 navbar-brand d-flex justify-content-center">
 		<img style="width:200px; height:150px;" th:src="@{/images/llogo.jpg}" />
 	</div>
+	
+	<div class="mt-4 d-flex justify-content-center">
+		<a class="btn btn-lg btn-secondary shadow-sm rounded" th:href="@{/oauth2/authorization/google}">&nbsp;&nbsp;Continue with Google</a>
+	</div>
 
 	<form th:action="@{/login}" method="post" style="max-width: 400px; margin:0 auto;">
 	    <div th:if="${param.error}">
