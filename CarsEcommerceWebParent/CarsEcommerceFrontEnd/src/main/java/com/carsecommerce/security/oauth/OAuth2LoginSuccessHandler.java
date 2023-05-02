@@ -28,13 +28,12 @@ public class OAuth2LoginSuccessHandler extends SavedRequestAwareAuthenticationSu
 		String name = oauth2User.getName();
 		String email = oauth2User.getEmail();
 
-		System.out.println("OAuth2LoginSuccessHandler: " + name + " | " + email);
-
 		Customer customer = customerService.getCustomerByEmail(email);
 		if (customer == null) {
 			customerService.addNewCustomerUponOAuthLogin(name, email);
 		} else {
 			customerService.updateAuthenticationType(customer, AuthenticationType.GOOGLE);
+			oauth2User.setFullName(customer.getFullName());
 		}
 
 		super.onAuthenticationSuccess(request, response, authentication);

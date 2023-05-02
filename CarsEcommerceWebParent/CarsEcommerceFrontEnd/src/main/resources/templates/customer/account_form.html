@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: metaetj" />
+<body>
+<div class="container-fluid">
+	<div th:replace="navigation :: menu"></div>
+	
+<div class="mt-4 shadow p-3 mb-5 bg-white rounded">
+	<div class="mt-4 font-weight-bold text-center text-info">
+		<h2>[[${pageTitle}]]</h2>
+	</div>
+
+	<form th:action="@{/update_account_details}" method="post" th:object="${customer}"
+		style="max-width: 400px; margin: 0 auto">
+		<input type="hidden" th:field="*{id}" />
+	<div class="mt-4 shadow p-3 mb-5 bg-white rounded">
+		<p>
+			<input type="text" th:field="*{authenticationType}" class="form-control shadow-sm bg-light rounded" maxlength="45" minlength="2" readonly="readonly" />
+		</p>
+		<p>
+			<input type="text" th:field="*{firstName}" class="form-control shadow-sm bg-light rounded" maxlength="45" minlength="2" placeholder="Emri" required />
+		</p>
+		<p>
+			<input type="text" th:field="*{lastName}"class="form-control shadow-sm bg-light rounded" maxlength="45" minlength="2" placeholder="Mbiemri" required />
+		</p>
+		
+		<p>
+			<input type="email" th:field="*{email}" class="form-control shadow-sm bg-light rounded" maxlength="45" minlength="8" placeholder="Email" readonly="readonly" />
+		</p>
+		<p>
+			<input type="password" th:field="*{password}"class="form-control shadow-sm bg-light rounded" maxlength="64" minlength="6" placeholder="Fjalekalimi" required oninput="checkPasswordMatch(document.getElementById('confirmPassword'))" />
+		</p>
+		
+		<p>
+			<input type="password" id="confirmPassword" class="form-control shadow-sm bg-light rounded" maxlength="64" minlength="6" placeholder="Rishkruaj Fjalekalimin" required oninput="checkPasswordMatch(this)" />
+		</p>
+		
+		<p>
+			<input type="number" th:field="*{phoneNumber}" class="form-control shadow-sm bg-light rounded" maxlength="15" minlength="8" placeholder="Numri i Telefonit" />
+		</p>
+        <p>
+			<input type="text" th:field="*{addressLine1}" class="form-control shadow-sm bg-light rounded" maxlength="64" minlength="3" placeholder="Adresa 1" />
+		</p>
+		
+		<p>
+			<input type="text" th:field="*{addressLine2}" class="form-control shadow-sm bg-light rounded" maxlength="64" minlength="3" placeholder="Adresa 2" />
+		</p>
+		
+		<p>
+			<input type="text" th:field="*{city}" class="form-control shadow-sm bg-light rounded" maxlength="45" minlength="2" placeholder="Qyteti" />
+		</p>
+        
+		<div class="mt-4 text-center">
+			<input type="submit" value="Ndrysho" class="btn btn-primary shadow rounded" />
+		</div>
+	</div>
+	</form>
+
+</div>
+	<div th:replace="fragments :: modal_dialog"></div>
+	<div th:replace="fragments :: footer"></div>
+</div>	
+
+<script th:src="@{/js/common.js}"></script>
+<script type="text/javascript">
+	contextPath = "[[@{/}]]";
+</script>
+</body>
+</html>

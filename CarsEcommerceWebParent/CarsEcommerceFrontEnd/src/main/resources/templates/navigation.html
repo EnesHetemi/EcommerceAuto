@@ -32,13 +32,14 @@
 					</th:block>
 					
 					<th:block sec:authorize="isAuthenticated()">
-					<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle" data-toggle="dropdown" th:href="@{/customer}"
+					<li class="nav-item">
+						<a class="nav-link" th:href="@{/account_details}"
 							sec:authentication="principal.fullName"></a>
-						<div class="dropdown-menu">
-							<a class="dropdown-item" href="javascript: document.logoutForm.submit()">Logout</a>
-						</div>
 					</li>	
+					
+					<li class="nav-item">
+						<a class="nav-link" href="javascript: document.logoutForm.submit()">Logout</a>
+					</li>
 					</th:block>
 				</ul>
 			</div>
@@ -46,7 +47,6 @@
 		</nav>
 	
 </div>
-
 
 </body>
 </html>
