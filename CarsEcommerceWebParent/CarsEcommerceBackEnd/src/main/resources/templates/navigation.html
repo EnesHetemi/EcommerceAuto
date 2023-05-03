@@ -27,7 +27,7 @@
 					<li class="nav-item" sec:authorize="hasAnyAuthority('Admin', 'Editor', 'Salesperson')">
 						<a class="nav-link" th:href="@{/products}">Produktet</a>
 					</li>
-					<li class="nav-item">
+					<li class="nav-item" sec:authorize="hasAnyAuthority('Admin', 'Salesperson')">
 						<a class="nav-link" th:href="@{/customers}">Konsumatoret</a>
 					</li>					
 					<li class="nav-item">

@@ -1,0 +1,74 @@
+<div class="modal-header">
+	<h4 class="modal-title">Detajet e Konsumatorit</h4>
+	<button type="button" class="close" data-dismiss="modal">&times;</button>
+</div>
+
+<div>
+	<ul class="nav" id="myTab" role="tablist">
+	  <li class="nav-item">
+	    <a class="nav-link active shadow-sm bg-light rounded" data-toggle="tab" href="#general" role="tab">Te pergjithshmet</a>
+	  </li>
+	  <li class="nav-item">
+	    <a class="nav-link shadow-sm bg-light rounded" data-toggle="tab" href="#address" role="tab">Adresa</a>
+	  </li>
+	</ul>
+</div>
+
+<div class="tab-content">
+<div class="tab-pane active p-3" id="general" role="tabpanel">
+<div class="form-group row">
+		<label class="col-sm-2 col-form-label">Emri dhe Mbiemri:</label>
+		<div class="col-sm-10">
+			<input type="text" class="form-control shadow-sm bg-light rounded" th:value="${customer.fullName}" readonly  />
+		</div>
+	</div>
+	
+	<div class="form-group row">
+		<label class="col-sm-2 col-form-label">Email:</label>
+		<div class="col-sm-10">
+			<input type="text" class="form-control shadow-sm bg-light rounded" th:value="${customer.email}" readonly  />
+		</div>
+	</div>
+
+	<div class="form-group row">
+		<label class="col-sm-2 col-form-label">Aktivizimi:</label>
+		<div class="col-sm-10">
+			<input type="checkbox" th:checked="${customer.enabled}" disabled="disabled" />
+		</div>
+	</div>
+
+	<div class="form-group row">
+		<label class="col-sm-2 col-form-label">Data e Krijimit:</label>
+		<div class="col-sm-10">
+			<span th:text="${#dates.format(customer.createdTime, 'yyyy-MM-dd HH:mm:ss')}"></span>
+		</div>
+	</div>
+</div>
+	
+	<div class="tab-pane p-3" id="address" role="tabpanel">
+<div class="form-group row">
+		<label class="col-sm-2 col-form-label">Adresa 1:</label>
+		<div class="col-sm-10">
+			<input type="text" class="form-control shadow-sm bg-light rounded" th:value="${customer.addressLine1}" readonly  />
+		</div>
+	</div>
+	
+	<div class="form-group row">
+		<label class="col-sm-2 col-form-label">Adresa 2:</label>
+		<div class="col-sm-10">
+			<input type="text" class="form-control shadow-sm bg-light rounded" th:value="${customer.addressLine2}" readonly  />
+		</div>
+	</div>
+	
+	<div class="form-group row">
+		<label class="col-sm-2 col-form-label">Qyteti:</label>
+		<div class="col-sm-10">
+			<input type="text" class="form-control shadow-sm bg-light rounded" th:value="${customer.city}" readonly  />
+		</div>
+	</div>
+
+</div>
+
+<div class="modal-footer">
+	<button type="button" class="btn btn-danger" data-dismiss="modal">Mbylle</button>
+</div>
