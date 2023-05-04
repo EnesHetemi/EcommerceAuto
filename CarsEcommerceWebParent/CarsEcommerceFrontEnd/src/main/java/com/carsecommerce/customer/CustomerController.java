@@ -52,7 +52,7 @@ public class CustomerController {
 		return "customer/account_form";
 	}
 
-	private String getEmailOfAuthenticatedCustomer(HttpServletRequest request) {
+	public String getEmailOfAuthenticatedCustomer(HttpServletRequest request) {
 		Object principal = request.getUserPrincipal();
 		String customerEmail = null;
 
