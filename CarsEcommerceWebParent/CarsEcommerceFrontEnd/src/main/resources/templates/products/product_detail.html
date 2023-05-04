@@ -29,10 +29,10 @@
 				<span class="shadow-sm rounded" th:if="${product.discountPercent <= 0}">[[${product.price}]] €</span>
 				<del class="shadow-sm rounded" th:if="${product.discountPercent > 0}"><span>[[${product.price}]] €</span></del>
 			</div>
-			<div th:if="${product.discountPercent > 0}">
+			<div class="mt-2" th:if="${product.discountPercent > 0}">
 				<span class="text-info">Qmimi: </span>
 				<span class="shadow-sm rounded" style="font-size: larger; color: darkred">[[${product.discountPrice}]] €</span>
-				([[${product.discountPercent}]] % off)
+				([[${product.discountPercent}]] % zbritje)
 			</div>
 			<div class="mt-3 text-info">Përshkrimi: </div>
 			<div class="shadow-sm rounded" th:utext="${product.name}"></div>			

@@ -20,7 +20,7 @@
                             <div class="bbb_deals_info_line d-flex flex-row justify-content-start">
                                 <div class="bbb_deals_item_category"><strong>Brand: </strong>[[${product.brand.name}]]</div>
                                 <div class="bbb_deals_item_price_a ml-auto" th:if="${product.discountPercent > 0}"><strong>Qmimi Baze: </strong><strike>
-				                  <span th:if="${product.discountPercent > 0}">[[${product.price}]] €</span>
+				                  <span th:if="${product.discountPercent <= 0}">[[${product.price}]] €</span>
 				                  <del th:if="${product.discountPercent > 0}"><span>[[${product.price}]] €</span></del></strike></div>
                             </div>
                             <div class="bbb_deals_info_line d-flex flex-row justify-content-start">
