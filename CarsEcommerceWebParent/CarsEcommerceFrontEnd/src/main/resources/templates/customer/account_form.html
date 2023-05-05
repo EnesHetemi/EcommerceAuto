@@ -28,11 +28,11 @@
 			<input type="email" th:field="*{email}" class="form-control shadow-sm bg-light rounded" maxlength="45" minlength="8" placeholder="Email" readonly="readonly" />
 		</p>
 		<p>
-			<input type="password" th:field="*{password}"class="form-control shadow-sm bg-light rounded" maxlength="64" minlength="6" placeholder="Fjalekalimi" required oninput="checkPasswordMatch(document.getElementById('confirmPassword'))" />
+			<input type="password" th:field="*{password}"class="form-control shadow-sm bg-light rounded" maxlength="64" minlength="6" placeholder="Fjalekalimi" oninput="checkPasswordMatch(document.getElementById('confirmPassword'))" />
 		</p>
 		
 		<p>
-			<input type="password" id="confirmPassword" class="form-control shadow-sm bg-light rounded" maxlength="64" minlength="6" placeholder="Rishkruaj Fjalekalimin" required oninput="checkPasswordMatch(this)" />
+			<input type="password" id="confirmPassword" class="form-control shadow-sm bg-light rounded" maxlength="64" minlength="6" placeholder="Rishkruaj Fjalekalimin" oninput="checkPasswordMatch(this)" />
 		</p>
 		
 		<p>
