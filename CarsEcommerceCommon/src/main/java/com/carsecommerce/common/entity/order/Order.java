@@ -17,6 +17,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.carsecommerce.common.entity.Address;
 import com.carsecommerce.common.entity.Customer;
 
 @Entity
@@ -40,9 +41,15 @@ public class Order {
 
 	@Column(name = "address_line_2", length = 64)
 	private String addressLine2;
+	
+	@Column(nullable = false, length = 45)
+	private String city;
 
 	private Date orderTime;
 	private float total;
+	
+	private int deliverDays;
+	private Date deliverDate;
 
 	@Enumerated(EnumType.STRING)
 	private PaymentMethod paymentMethod;
@@ -104,6 +111,14 @@ public class Order {
 	public void setAddressLine2(String addressLine2) {
 		this.addressLine2 = addressLine2;
 	}
+	
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
 
 	public Date getOrderTime() {
 		return orderTime;
@@ -119,6 +134,22 @@ public class Order {
 
 	public void setTotal(float total) {
 		this.total = total;
+	}
+	
+	public int getDeliverDays() {
+		return deliverDays;
+	}
+
+	public void setDeliverDays(int deliverDays) {
+		this.deliverDays = deliverDays;
+	}
+
+	public Date getDeliverDate() {
+		return deliverDate;
+	}
+
+	public void setDeliverDate(Date deliverDate) {
+		this.deliverDate = deliverDate;
 	}
 
 	public PaymentMethod getPaymentMethod() {
@@ -152,7 +183,23 @@ public class Order {
 	public void setOrderDetails(Set<OrderDetail> orderDetails) {
 		this.orderDetails = orderDetails;
 	}
+	
+	public void copyShippingAddress(Address address) {
+		setFirstName(address.getFirstName());
+		setLastName(address.getLastName());
+		setPhoneNumber(address.getPhoneNumber());
+		setAddressLine1(address.getAddressLine1());
+		setAddressLine2(address.getAddressLine2());		
+		setCity(address.getCity());	
+	}
 
-
+	public void copyAddressFromCustomer() {
+		setFirstName(customer.getFirstName());
+		setLastName(customer.getLastName());
+		setPhoneNumber(customer.getPhoneNumber());
+		setAddressLine1(customer.getAddressLine1());
+		setAddressLine2(customer.getAddressLine2());	
+		setCity(customer.getCity());
+	}
 
 }

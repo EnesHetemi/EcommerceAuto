@@ -57,8 +57,6 @@ public class Product {
 	@Column(name = "discount_percent")
 	private float discountPercent;
 
-	private float weight;
-
 	@ManyToOne
 	@JoinColumn(name = "category_id")
 	private Category category;
@@ -179,14 +177,6 @@ public class Product {
 
 	public void setDiscountPercent(float discountPercent) {
 		this.discountPercent = discountPercent;
-	}
-
-	public float getWeight() {
-		return weight;
-	}
-
-	public void setWeight(float weight) {
-		this.weight = weight;
 	}
 
 	public Category getCategory() {
