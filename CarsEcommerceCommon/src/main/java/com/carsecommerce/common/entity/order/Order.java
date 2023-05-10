@@ -1,7 +1,9 @@
 package com.carsecommerce.common.entity.order;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -15,7 +17,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.carsecommerce.common.entity.Address;
 import com.carsecommerce.common.entity.Customer;
@@ -63,6 +67,10 @@ public class Order {
 
 	@OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
 	private Set<OrderDetail> orderDetails = new HashSet<>();
+	
+	@OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+	@OrderBy("updatedTime ASC")
+	private List<OrderTrack> orderTracks = new ArrayList<>();
 
 	public Integer getId() {
 		return id;
@@ -200,6 +208,31 @@ public class Order {
 		setAddressLine1(customer.getAddressLine1());
 		setAddressLine2(customer.getAddressLine2());	
 		setCity(customer.getCity());
+	}
+	
+	@Transient
+	public String getShippingAddress() {
+		String address = firstName;
+
+		if (lastName != null && !lastName.isEmpty()) address += " " + lastName;
+
+		if (!addressLine1.isEmpty()) address += ", " + addressLine1;
+
+		if (addressLine2 != null && !addressLine2.isEmpty()) address += ", " + addressLine2;
+
+		if (!city.isEmpty()) address += ", " + city;
+
+		if (!phoneNumber.isEmpty()) address += ". Numri i Telefonit: " + phoneNumber;
+
+		return address;
+	}
+	
+	public List<OrderTrack> getOrderTracks() {
+		return orderTracks;
+	}
+
+	public void setOrderTracks(List<OrderTrack> orderTracks) {
+		this.orderTracks = orderTracks;
 	}
 
 }
