@@ -12,7 +12,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.carsecommerce.common.entity.Category;
-import com.carsecommerce.common.entity.User;
 
 @Service
 @Transactional

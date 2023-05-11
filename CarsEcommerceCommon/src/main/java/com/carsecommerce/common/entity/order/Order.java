@@ -30,6 +30,8 @@ public class Order {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	
+	private String name;
 
 	@Column(name = "first_name", nullable = false, length = 45)
 	private String firstName;
@@ -86,6 +88,14 @@ public class Order {
 
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
+	}
+	
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getLastName() {
@@ -225,6 +235,12 @@ public class Order {
 		if (!phoneNumber.isEmpty()) address += ". Numri i Telefonit: " + phoneNumber;
 
 		return address;
+	}
+	
+	@Override
+	public String toString() {
+		return "Order [id=" + id + ", total=" + total + ", paymentMethod=" + paymentMethod + ", status=" + status
+				+ ", customer=" + customer.getFullName() + "]";
 	}
 	
 	public List<OrderTrack> getOrderTracks() {

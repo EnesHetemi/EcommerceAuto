@@ -28,7 +28,7 @@ public class OrderService {
 		newOrder.setOrderTime(new Date());
 		newOrder.setStatus(OrderStatus.NEW);
 		newOrder.setCustomer(customer);
-		newOrder.setTotal(checkoutInfo.getPaymentTotal());
+		newOrder.setTotal(checkoutInfo.getProductTotal());
 		newOrder.setPaymentMethod(paymentMethod);
 		newOrder.setDeliverDays(checkoutInfo.getDeliverDays());
 		newOrder.setDeliverDate(checkoutInfo.getDeliverDate());
@@ -49,6 +49,7 @@ public class OrderService {
 			orderDetail.setProduct(product);
 			orderDetail.setQuantity(cartItem.getQuantity());
 			orderDetail.setUnitPrice(product.getDiscountPrice());
+			orderDetail.setTotal(cartItem.getSubtotal());
 			orderDetails.add(orderDetail);
 		}
 

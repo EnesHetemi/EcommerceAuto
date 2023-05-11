@@ -7,7 +7,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 import com.carsecommerce.common.entity.Category;
-import com.carsecommerce.common.entity.User;
 
 public interface CategoryRepository extends PagingAndSortingRepository<Category, Integer> {
 	
