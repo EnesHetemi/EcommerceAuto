@@ -7,12 +7,14 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.carsecommerce.admin.security.CarsEcommerceUserDetails;
 import com.carsecommerce.common.entity.order.Order;
 
 @Controller
@@ -23,14 +25,14 @@ public class OrderController {
 	
 	@GetMapping("/orders")
 	public String listFirstPage(Model model) {
-		return listByPage(1, model, "name", "asc", null);
+		return listByPage(1, model, "name", "asc", null, null);
 	}
 
 	@GetMapping("/orders/page/{pageNum}")
 	public String listByPage(
 			@PathVariable(name = "pageNum") int pageNum, Model model,
 			@Param("sortField") String sortField, @Param("sortDir") String sortDir,
-			@Param("keyword") String keyword
+			@Param("keyword") String keyword, @AuthenticationPrincipal CarsEcommerceUserDetails loggedUser
 			) {
 		Page<Order> page = service.listByPage(pageNum, sortField, sortDir, keyword);
 		List<Order> listOrders = page.getContent();

@@ -251,4 +251,39 @@ public class Order {
 		this.orderTracks = orderTracks;
 	}
 
+	@Transient
+	public boolean isCOD() {
+		return paymentMethod.equals(PaymentMethod.COD);
+	}
+	
+	@Transient
+	public boolean isProcessing() {
+		return hasStatus(OrderStatus.PROCESSING);
+	}
+	
+	@Transient
+	public boolean isPackaged() {
+		return hasStatus(OrderStatus.PACKAGED);
+	}
+	
+	@Transient
+	public boolean isRefunded() {
+		return hasStatus(OrderStatus.REFUNDED);
+	}
+	
+	@Transient
+	public boolean isPaid() {
+		return hasStatus(OrderStatus.PAID);
+	}	
+	
+	public boolean hasStatus(OrderStatus status) {
+		for (OrderTrack aTrack : orderTracks) {
+			if (aTrack.getStatus().equals(status)) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
+
 }

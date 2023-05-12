@@ -13,6 +13,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.carsecommerce.common.entity.order.Order;
+import com.carsecommerce.common.entity.order.OrderStatus;
 
 @Service
 @Transactional
@@ -57,4 +58,18 @@ public class OrderService {
 
 		repo.deleteById(id);
 	}	
+	
+	
+	public void updateStatus(Integer orderId, String status) {
+		Order orderInDB = repo.findById(orderId).get();
+		OrderStatus statusToUpdate = OrderStatus.valueOf(status);
+
+		if (!orderInDB.hasStatus(statusToUpdate)) {
+
+			orderInDB.setStatus(statusToUpdate);
+
+			repo.save(orderInDB);
+		}
+
+	}
 }
