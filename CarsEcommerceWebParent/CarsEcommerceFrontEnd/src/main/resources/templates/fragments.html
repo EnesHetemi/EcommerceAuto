@@ -12,10 +12,21 @@
 	<script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}" ></script>
 </head>
 <body>
-	  <a th:fragment="page_link(pageNum, label)"
-		class="page-link" 
-		th:href="@{${moduleURL} + '/page/' + ${pageNum} + '?'  + ${keyword != null ? '&keyword=' + keyword : ''}}">[[${label}]]</a>
 
+  <th th:fragment="column_link(moduleURL, fieldName, columnLabel, removeTag)" th:remove="${removeTag}">
+	<a class="text-white"
+		th:href="@{${moduleURL} + '/page/' + ${currentPage} + '?sortField=' + ${fieldName}  +'&sortDir=' + ${sortField != fieldName ? sortDir : reverseSortDir} + ${keyword != null ? '&keyword=' + keyword : ''}}">
+		[[${columnLabel}]]
+	</a>								
+	<span th:if="${sortField == fieldName}"
+		th:class="${sortDir == 'asc'}" ></span>					
+   </th>
+   
+   <a th:fragment="page_link(pageNum, label)"
+	class="page-link" 
+	th:href="@{${moduleURL} + '/page/' + ${pageNum} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir} + ${keyword != null ? '&keyword=' + keyword : ''}}">[[${label}]]</a>
+	
+	
    <div th:fragment="pagination(entityName)" th:remove="tag">
 	<div class="text-center m-1" th:if="${totalItems > 0}">
 		<span>Showing [[${entityName}]] # [[${startCount}]] to [[${endCount}]] of [[${totalItems}]]</span>

@@ -286,4 +286,18 @@ public class Order {
 		return false;
 	}
 
+	@Transient
+	public String getProductCodes() {
+		String productCodes = "";
+
+		productCodes = "<ul>";
+
+		for (OrderDetail detail : orderDetails) {
+			productCodes += "<li>" + detail.getProduct().getProductCode() + "</li>";			
+		}
+
+		productCodes += "</ul>";
+
+		return productCodes;
+	}	
 }

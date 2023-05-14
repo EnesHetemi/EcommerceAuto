@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: metaetj" />
+<body>
+
+<div th:replace="navigation :: menu"></div>
+
+   <div class="mt-4 d-flex justify-content-center">
+		<form th:action="@{'/orders/page/1'}" class="form-inline m-3">
+			<input type="hidden" name="sortField" th:value="${sortField}" />
+			<input type="hidden" name="sortDir" th:value="${sortDir}" />
+
+			<input type="search" name="keyword" th:value="${keyword}" class="form-control" required/>
+			&nbsp;&nbsp;
+			<input type="submit" value="Search" class="btn btn-primary shadow rounded" />
+			&nbsp;&nbsp;
+			<input type="button" value="Clear" class="btn btn-secondary shadow rounded" onclick="clearFilter()" />
+		</form>				
+	</div>
+
+<div th:replace="fragments :: message" />
+
+<div class="text-center">
+<div class="mt-3 full-details d-flex justify-content-center">
+		<table class="table table-bordered table-striped table-hover table-responsive-xl w-75 shadow p-3 mb-5 bg-white rounded">
+			<thead class="table-info">
+				<tr>
+                    <th>Produktet</th>
+					<th th:replace="fragments :: column_link('/orders', 'orderTime', 'Koha e Porosis', 'none')" />
+					<th th:replace="fragments :: column_link('/orders', 'total', 'Totali', 'none')" />
+					<th th:replace="fragments :: column_link('/orders', 'status', 'Statusi', 'none')" />
+				</tr>								
+			</thead>
+			<tbody>
+				<tr th:each="order : ${listOrders}">
+					<td th:utext="${order.productCodes}"></td>
+					<td>[[${order.orderTime}]]</td>
+					<td>[[${order.total}]]</td>
+					<td><span>[[${order.status}]]</span></td>				
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+
+    <div th:replace="fragments :: pagination('orders')"></div>
+	
+	<div th:replace="fragments :: footer"></div>
+	
+<script type="text/javascript">
+	moduleURL = "[[@{/orders}]]";
+	
+	function clearFilter() {
+		window.location = moduleURL;
+	}
+</script>
+</body>
+</html>
