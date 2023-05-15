@@ -1,0 +1,136 @@
+<div class="modal-header">
+	<h4 class="modal-title">Detajet e Porosis</h4>
+	<button type="button" class="close" data-dismiss="modal">&times;</button>
+</div>
+
+	<div>
+		<ul class="nav" id="myTab" role="tablist">
+		  <li class="nav-item">
+		    <a class="nav-link active shadow-sm bg-light rounded" id="overview-tab" data-toggle="tab" href="#overview" role="tab">Të përgjithshmet</a>
+		  </li>
+		  <li class="nav-item">
+		    <a class="nav-link shadow-sm bg-light rounded" id="products-tab" data-toggle="tab" href="#products" role="tab">Produktet</a>
+		  </li>
+		  <li class="nav-item">
+		    <a class="nav-link shadow-sm bg-light rounded" id="address-tab" data-toggle="tab" href="#address" role="tab">Adresa</a>
+		  </li>		 
+		</ul>
+		<div class="tab-content" id="myTabContent">
+		  <div class="tab-pane active p-3" id="overview" role="tabpanel" aria-labelledby="overview-tab">
+			<form>
+			  <div class="form-group row">
+			    <label class="col-sm-2 col-form-label">Konsumatori:</label>
+			    <div class="col-sm-10">
+			      <input type="text" readonly class="form-control shadow-sm bg-light rounded" th:value="${order.customer.fullName}">
+			    </div>
+			  </div>
+			  
+			  <div class="form-group row">
+			    <label class="col-sm-2 col-form-label">Totali:</label>
+			    <div class="col-sm-10">
+			      <input type="number" readonly class="form-control shadow-sm bg-light rounded" th:value="${order.total}">
+			    </div>
+			  </div>			  		  			  
+			  <div class="form-group row">
+			    <label class="col-sm-2 col-form-label">Metoda e pagesës:</label>
+			    <div class="col-sm-10">
+			      <span class="shadow-sm bg-light rounded">[[${order.paymentMethod}]]</span>
+			    </div>
+			  </div>			  	
+			  <div class="form-group row">
+			    <label class="col-sm-2 col-form-label">Statusi:</label>
+			    <div class="col-sm-10">
+			      <span class="shadow-sm bg-light rounded">[[${order.status}]]</span>
+			    </div>
+			  </div>	
+			  <div class="form-group row">
+			    <label class="col-sm-2 col-form-label">Totali:</label>
+			    <div class="col-sm-10">
+			      <input type="text" readonly class="form-control shadow-sm bg-light rounded" th:value="${order.orderTime}">
+			    </div>
+			  </div>	    			  
+			</form>
+		  </div>
+		  <div class="tab-pane fade p-3 shadow-sm bg-light rounded" id="products" role="tabpanel" aria-labelledby="products-tab">
+			<th:block th:each="detail, status : ${order.orderDetails}">
+			<div class="mt-4 row rounded p-1 shadow rounded" th:with="product = ${detail.product}">
+				<div class="col-sm-1">
+					<div class="div-count">[[${status.count}]]</div>					
+				</div>
+				<div class="col-sm-3"><img th:src="@{${product.mainImagePath}}" class="img-fluid" /></div>
+				<div class="col-sm-8">
+					<div class="text-info">
+						<span>Kodi: <b>[[${product.productCode}]]</b></span>
+					</div>
+					<div class="text-info">
+						<span>Pershkrimi: <b>[[${product.name}]]</b></span>
+					</div>
+					<div>
+						Totali: [[${detail.quantity}]] X
+						 <div>[[${detail.unitPrice}]] €</div>
+						 = 
+						 <div>[[${detail.total}]] €</div>
+					</div>				
+				</div>
+			</div>
+			</th:block>
+		  </div>
+		  <div class="tab-pane fade p-3" id="address" role="tabpanel" aria-labelledby="address-tab">
+			  <div class="form-group row">
+			    <label class="col-sm-2 col-form-label">Ditët e dorëzimit:</label>
+			    <div class="col-sm-10">
+			      <input type="text" readonly class="form-control shadow-sm bg-light rounded" th:value="${order.deliverDays}">
+			    </div>
+			  </div>		  
+			  <div class="form-group row">
+			    <label class="col-sm-2 col-form-label">Data e pritshme e dorëzimit:</label>
+			    <div class="col-sm-10">
+			    	<input type="text" readonly class="form-control shadow-sm bg-light rounded" th:value="${order.deliverDate}">
+			    </div>
+			  </div>			  
+			  <div class="form-group row">
+			    <label class="col-sm-2 col-form-label">Emri:</label>
+			    <div class="col-sm-10">
+			      <input type="text" readonly class="form-control shadow-sm bg-light rounded" th:value="${order.firstName}">
+			    </div>
+			  </div>
+			  <div class="form-group row">
+			    <label class="col-sm-2 col-form-label">Mbiemri:</label>
+			    <div class="col-sm-10">
+			      <input type="text" readonly class="form-control shadow-sm bg-light rounded" th:value="${order.lastName}">
+			    </div>
+			  </div>
+			  <div class="form-group row">
+			    <label class="col-sm-2 col-form-label">Numri i Telefonit:</label>
+			    <div class="col-sm-10">
+			      <input type="text" readonly class="form-control shadow-sm bg-light rounded" th:value="${order.phoneNumber}">
+			    </div>
+			  </div>
+			  <div class="form-group row">
+			    <label class="col-sm-2 col-form-label">Adresa 1:</label>
+			    <div class="col-sm-10">
+			      <input type="text" readonly class="form-control shadow-sm bg-light rounded" th:value="${order.addressLine1}">
+			    </div>
+			  </div>
+			  <div class="form-group row">
+			    <label class="col-sm-2 col-form-label">Adresa 2:</label>
+			    <div class="col-sm-10">
+			      <input type="text" readonly class="form-control shadow-sm bg-light rounded" th:value="${order.addressLine2}">
+			    </div>
+			  </div>
+			  <div class="form-group row">
+			    <label class="col-sm-2 col-form-label">Qyteti:</label>
+			    <div class="col-sm-10">
+			      <input type="text" readonly class="form-control shadow-sm bg-light rounded" th:value="${order.city}">
+			    </div>
+			  </div>			  
+		  </div>  
+
+		</div>
+		</div>
+
+	</div>
+
+<div class="modal-footer">
+	<button type="button" class="btn btn-danger" data-dismiss="modal">Mbylle</button>
+</div>

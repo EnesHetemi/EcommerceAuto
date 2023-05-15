@@ -29,6 +29,7 @@
 					<th th:replace="fragments :: column_link('/orders', 'orderTime', 'Koha e Porosis', 'none')" />
 					<th th:replace="fragments :: column_link('/orders', 'total', 'Totali', 'none')" />
 					<th th:replace="fragments :: column_link('/orders', 'status', 'Statusi', 'none')" />
+					<th>Veprime</th>
 				</tr>								
 			</thead>
 			<tbody>
@@ -36,7 +37,10 @@
 					<td th:utext="${order.productCodes}"></td>
 					<td>[[${order.orderTime}]]</td>
 					<td>[[${order.total}]]</td>
-					<td><span>[[${order.status}]]</span></td>				
+					<td><span>[[${order.status}]]</span></td>	
+					<td><a class="linkDetail" th:href="@{'/orders/detail/' + ${order.id}}"
+							title="Shikoni detajet per kete porosi"
+							>Detajet e Porosis</a></td>			
 				</tr>
 			</tbody>
 		</table>
@@ -47,12 +51,30 @@
 	
 	<div th:replace="fragments :: footer"></div>
 	
+	<div class="modal fade" id="orderDetailsModal">
+	  <div class="modal-dialog modal-xl">
+	    <div class="modal-content">
+	    </div>
+	  </div>
+	</div>
+	
 <script type="text/javascript">
 	moduleURL = "[[@{/orders}]]";
 	
 	function clearFilter() {
 		window.location = moduleURL;
 	}
+	
+	$(document).ready(function(){
+		handleDetailLink();
+	});
+
+	function handleDetailLink() {
+		$(".linkDetail").on("click", function(e) {
+			e.preventDefault();
+			$('#orderDetailsModal').modal('show').find('.modal-content').load($(this).attr('href'));
+		});		
+	}	
 </script>
 </body>
 </html>
