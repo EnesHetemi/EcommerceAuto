@@ -67,7 +67,7 @@ public class BrandController {
 
 		model.addAttribute("listCategories", listCategories);
 		model.addAttribute("brand", new Brand());
-		model.addAttribute("pageTitle", "Krijo markë te re");
+		model.addAttribute("pageTitle", "Shto markë te re");
 
 		return "brands/brand_form";		
 	}

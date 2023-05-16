@@ -76,7 +76,7 @@ public class ProductController {
 
 		model.addAttribute("product", product);
 		model.addAttribute("listBrands", listBrands);
-		model.addAttribute("pageTitle", "Krijo produkt te ri");
+		model.addAttribute("pageTitle", "Shto produkt te ri");
 
 		return "products/product_form";
 	}

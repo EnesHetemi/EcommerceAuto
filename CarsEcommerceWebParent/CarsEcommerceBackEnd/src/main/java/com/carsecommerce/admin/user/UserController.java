@@ -66,7 +66,7 @@ public class UserController {
 
 		model.addAttribute("user", user);
 		model.addAttribute("listRoles", listRoles);
-		model.addAttribute("pageTitle", "Krijo përdorues të ri");
+		model.addAttribute("pageTitle", "Shto përdorues të ri");
 
 		return "users/user_form";
 	}

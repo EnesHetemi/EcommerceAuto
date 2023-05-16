@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments :: metaetj" />
+<head th:replace="fragments :: page_head('Produktet - Ecommerce Admin', 'none')" />
 <body>
 
 <div th:replace="navigation :: menu"></div>
 
 <div class="mt-4 " style="margin-left: 192px;">
-    <a th:href="@{/products/new}"><button type="button" class="btn btn-primary shadow mb-2 rounded">Krijo Produkt</button></a>
+    <a th:href="@{/products/new}"><button type="button" class="btn btn-primary shadow mb-2 rounded">Shto Produkt</button></a>
 </div>
 
 <div th:replace="fragments :: search_form('/products/page/1')" />

@@ -55,7 +55,7 @@ public class ProductController {
 			Product product = productService.getProduct(alias);
 
 			model.addAttribute("product", product);
-			model.addAttribute("pageTitle", product.getName());
+			model.addAttribute("pageTitle", product.getProductCode());
 
 			return "products/product_detail";
 		} catch (ProductNotFoundException e) {

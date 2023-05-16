@@ -49,7 +49,7 @@ public class AddressController {
 	public String newAddress(Model model) {
 
 		model.addAttribute("address", new Address());
-		model.addAttribute("pageTitle", "Shto Adresen e re");
+		model.addAttribute("pageTitle", "Shto Adresën e re");
 
 		return "address_book/address_form";
 	}

@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
-<head th:replace="fragments :: metaetj" />
+<head th:replace="fragments :: page_head('Përdoruesit - Ecommerce Admin', 'none')" />
 <body>
 
 <div th:replace="navigation :: menu"></div>
 
 <div class="mt-4 " style="margin-left: 192px;">
-    <a th:href="@{/users/new}"><button type="button" class="btn btn-primary shadow mb-2 rounded">Krijo Perdorues</button></a>
+    <a th:href="@{/users/new}"><button type="button" class="btn btn-primary shadow mb-2 rounded">Shto Përdorues</button></a>
 </div>
 
 <div th:replace="fragments :: search_form('/users/page/1')" />

@@ -58,7 +58,7 @@ public class CategoryController {
 	public String newCategory(Model model) {
 
 		model.addAttribute("category", new Category());
-		model.addAttribute("pageTitle", "Krijo kategori te re");
+		model.addAttribute("pageTitle", "Shto kategori te re");
 
 		return "categories/category_form";
 	}

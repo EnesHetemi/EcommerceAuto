@@ -47,7 +47,7 @@ public class CustomerController {
 		Customer customer = customerService.getCustomerByEmail(email);
 
 		model.addAttribute("customer", customer);
-		model.addAttribute("pageTitle", "Ndrysho te dhenat tuaja");
+		model.addAttribute("pageTitle", "Ndrysho te dhënat tuaja");
 
 		return "customer/account_form";
 	}

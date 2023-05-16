@@ -67,7 +67,7 @@ public class ShoppingCartRestController {
 			throws CustomerNotFoundException {
 		String email = customerController.getEmailOfAuthenticatedCustomer(request);
 		if (email == null) {
-			throw new CustomerNotFoundException("Nuk jeni te vertetuar");
+			throw new CustomerNotFoundException("Nuk jeni të vërtetuar");
 		}
 
 		return customerService.getCustomerByEmail(email);
