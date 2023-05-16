@@ -36,6 +36,9 @@
 					<li class="nav-item">
 						<a class="nav-link" th:href="@{/report}">Raporti i Shitjeve</a>
 					</li>	
+					<li class="nav-item" sec:authorize="hasAuthority('Admin')">
+						<a class="nav-link" th:href="@{/settings}">Settings</a>
+					</li>
 					<li class="nav-item dropdown">
 						<a class="nav-link dropdown-toggle" data-toggle="dropdown" th:href="@{/account}"
 							sec:authentication="principal.fullname"></a>
