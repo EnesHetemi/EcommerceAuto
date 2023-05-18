@@ -16,5 +16,12 @@ public class SettingService {
 	public List<Setting> getGeneralSettings() {
 		return repo.findByOneCategories(SettingCategory.GENERAL);
 	}
+	
+	public EmailSettingBag getEmailSettings() {
+		List<Setting> settings = repo.findByCategory(SettingCategory.MAIL_SERVER);
+		settings.addAll(repo.findByCategory(SettingCategory.MAIL_TEMPLATES));
+
+		return new EmailSettingBag(settings);
+	}
 
 }

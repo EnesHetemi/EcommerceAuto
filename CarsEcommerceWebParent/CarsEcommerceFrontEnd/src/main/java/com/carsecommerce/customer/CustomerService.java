@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import com.carsecommerce.common.entity.AuthenticationType;
 import com.carsecommerce.common.entity.Customer;
 
+import net.bytebuddy.utility.RandomString;
+
 @Service
 @Transactional
 public class CustomerService {
@@ -25,12 +27,27 @@ public class CustomerService {
 	
 	public void registerCustomer(Customer customer) {
 		encodePassword(customer);
-		customer.setEnabled(true);
+		customer.setEnabled(false);
 		customer.setCreatedTime(new Date());
 		customer.setAuthenticationType(AuthenticationType.DATABASE);
+		customer.setVerificationCode(customer.getVerificationCode());
+		
+		String randomCode = RandomString.make(64);
+		customer.setVerificationCode(randomCode);
 
 		customerRepo.save(customer);
 
+	}
+	
+	public boolean verify(String verificationCode) {
+		Customer customer = customerRepo.findByVerificationCode(verificationCode);
+
+		if (customer == null || customer.isEnabled()) {
+			return false;
+		} else {
+			customerRepo.enable(customer.getId());
+			return true;
+		}
 	}
 	
 	public Customer getCustomerByEmail(String email) {
