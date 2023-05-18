@@ -34,10 +34,10 @@
 		  	<div th:replace="settings/general :: content" />
 		  </div>
 		  <div class="tab-pane p-3" id="mailServer" role="tabpanel">
-			<h2>Test test</h2>
+			<div th:replace="settings/mail_server :: content"></div>
 		  </div>
 		  <div class="tab-pane p-3" id="mailTemplate" role="tabpanel">
-			<h2>Test2 Test2</h2>
+			<div th:replace="settings/mail_templates/mail_templates :: content"></div>
 		  </div>	
 		 </div>
 	</div>
@@ -48,6 +48,10 @@
 </div>
 <script type="text/javascript">
 	MAX_FILE_SIZE = 102400; // 100KB
+	
+	$(document).ready(function() {
+		$("#customerVerificationContent").richText();
+	});
 </script>
 <script th:src="@{/js/common_form.js}"></script>
 </body>
