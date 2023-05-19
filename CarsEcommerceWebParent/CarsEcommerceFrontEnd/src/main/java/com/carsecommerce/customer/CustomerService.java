@@ -31,6 +31,7 @@ public class CustomerService {
 		customer.setCreatedTime(new Date());
 		customer.setAuthenticationType(AuthenticationType.DATABASE);
 		customer.setVerificationCode(customer.getVerificationCode());
+		customer.setResetPasswordToken(customer.getResetPasswordToken());
 		
 		String randomCode = RandomString.make(64);
 		customer.setVerificationCode(randomCode);
@@ -48,6 +49,36 @@ public class CustomerService {
 			customerRepo.enable(customer.getId());
 			return true;
 		}
+	}
+	
+	public String updateResetPasswordToken(String email) throws CustomerNotFoundException {
+		Customer customer = customerRepo.findByEmail(email);
+		if (customer != null) {
+			String token = RandomString.make(30);
+			customer.setResetPasswordToken(token);
+			customerRepo.save(customer);
+
+			return token;
+		} else {
+			throw new CustomerNotFoundException("Nuk u gjendë asnjë konsumator me këtë email " + email);
+		}
+	}	
+
+	public Customer getByResetPasswordToken(String token) {
+		return customerRepo.findByResetPasswordToken(token);
+	}
+
+	public void updatePassword(String token, String newPassword) throws CustomerNotFoundException {
+		Customer customer = customerRepo.findByResetPasswordToken(token);
+		if (customer == null) {
+			throw new CustomerNotFoundException("Nuk u gjet asnjë konsumator: Token i pavlefshëm");
+		}
+
+		customer.setPassword(newPassword);
+		customer.setResetPasswordToken(null);
+		encodePassword(customer);
+
+		customerRepo.save(customer);
 	}
 	
 	public Customer getCustomerByEmail(String email) {
