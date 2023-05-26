@@ -8,6 +8,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.carsecommerce.common.entity.Category;
 import com.carsecommerce.common.entity.Product;
 
 @Entity
@@ -28,6 +29,22 @@ public class OrderDetail {
 	@ManyToOne
 	@JoinColumn(name = "order_id")
 	private Order order;
+	
+	public OrderDetail() {
+	}
+
+	public OrderDetail(String categoryName, int quantity, float total) {
+		this.product = new Product();
+		this.product.setCategory(new Category(categoryName));
+		this.quantity = quantity;
+		this.total = total;
+	}
+
+	public OrderDetail(int quantity, String productName, float total) {
+		this.product = new Product(productName);
+		this.quantity = quantity;
+		this.total = total;
+	}
 
 	public Integer getId() {
 		return id;

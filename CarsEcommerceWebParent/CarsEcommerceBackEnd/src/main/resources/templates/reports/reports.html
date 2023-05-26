@@ -1,10 +1,53 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="ISO-8859-1">
-<title>Reports</title>
-</head>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: page_head('Raporti i Shitjeve - Ecommerce Admin', 'none')" />
 <body>
-Reports
+<div class="container-fluid">
+	<div th:replace="navigation :: menu"></div>
+	<div class="mt-4 font-weight-bold text-center text-info">
+		<h2>Raporti i Shitjeve</h2>	
+	</div>
+
+	<div class="mt-3">
+		<ul class="nav nav-tabs" id="reportTab" role="tablist">
+		  <li class="nav-item">
+		    <a class="nav-link active shadow rounded" data-toggle="tab" href="#date" role="tab">Shitjet sipas Dates</a>
+		  </li>
+		  <li class="nav-item">
+		    <a class="nav-link shadow rounded" data-toggle="tab" href="#category" role="tab">Shitjet sipas Kategoris</a>
+		  </li>
+		  <li class="nav-item">
+		    <a class="nav-link shadow rounded" data-toggle="tab" href="#product" role="tab">Shitjet sipas Produkteve</a>
+		  </li>		  		  
+		</ul>
+
+		<div class="tab-content">
+		  <div class="tab-pane active p-3 shadow rounded" id="date" role="tabpanel">
+		  	<div th:replace="reports/sales_report_by_date::content"></div>
+		  </div>
+		  <div class="tab-pane p-3 shadow rounded" id="category" role="tabpanel">
+			<h2>Shitjet sipas Kategoris</h2>
+		  </div>
+		  <div class="tab-pane p-3 shadow rounded" id="product" role="tabpanel">
+			<h2>Shitjet sipas Produkteve</h2>
+		  </div>  	
+		 </div>
+	</div>
+
+	<div th:replace="fragments :: footer"></div>
+
+</div>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+	contextPath = "[[@{/}]]";
+
+	$(document).ready(function() {
+		google.charts.load('current', {'packages': ['corechart']});
+		google.charts.setOnLoadCallback(loadSalesReportByDate);
+	});
+
+</script>
+<script type="text/javascript" th:src="@{/js/jquery.number.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/sales_report_by_date.js}"></script>
 </body>
 </html>

@@ -73,6 +73,15 @@ public class Order {
 	@OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
 	@OrderBy("updatedTime ASC")
 	private List<OrderTrack> orderTracks = new ArrayList<>();
+	
+	public Order() {
+	}
+
+	public Order(Integer id, Date orderTime, float total) {
+		this.id = id;
+		this.orderTime = orderTime;
+		this.total = total;
+	}
 
 	public Integer getId() {
 		return id;
