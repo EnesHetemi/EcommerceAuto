@@ -7,7 +7,16 @@
 		<button period="last_28_days" class="btn btn-light button-sales-by-date m-1 shadow rounded">Periudha 28 Ditore</button>
 		<button period="last_6_months" class="btn btn-light button-sales-by-date m-1 shadow rounded">Periudha 6 Mujore</button>
 		<button period="last_year" class="btn btn-light button-sales-by-date m-1 shadow rounded">Periudha 1 Vjeqare</button>
+		<button class="btn btn-light button-sales-by-date m-1 shadow rounded">Sipas Datave</button>
 	</div>
+	
+	<form>
+	<div id="divCustomDateRange" class="d-none mt-4">
+		Nga data: <input type="date" id="startDate"> &nbsp;
+		Në datën: <input type="date" id="endDate"> &nbsp;
+		<button type="button" class="btn btn-secondary" id="buttonViewReportByDateRange">Shiko</button>
+	</div>
+	</form>
 
 	<div id="chart_sales_by_date" class="justify-content-center mt-3"></div>
 
