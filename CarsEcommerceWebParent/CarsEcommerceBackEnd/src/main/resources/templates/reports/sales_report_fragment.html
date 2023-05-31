@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="content(reportType)" th:remove="tag">
+	<div th:with="buttonClass = 'button-sales-by' + ${reportType}">
+		<button period="last_7_days" class="btn btn-primary button-sales-by-date m-1 shadow rounded" th:classappend="${buttonClass}">Periudha 7 Ditore</button>
+		<button period="last_28_days" class="btn btn-light button-sales-by-date m-1 shadow rounded" th:classappend="${buttonClass}">Periudha 28 Ditore</button>
+		<button period="last_6_months" class="btn btn-light button-sales-by-date m-1 shadow rounded" th:classappend="${buttonClass}">Periudha 6 Mujore</button>
+		<button period="last_year" class="btn btn-light button-sales-by-date m-1 shadow rounded" th:classappend="${buttonClass}">Periudha 1 Vjeqare</button>
+		<button class="btn btn-light button-sales-by-date m-1 shadow rounded" th:classappend="${buttonClass}">Sipas Datave</button>
+	</div>
+	
+	<form>
+	<div th:id="'divCustomDateRange' + ${reportType}" class="d-none mt-4">
+		Nga data: <input type="date" th:id="'startDate' + ${reportType}"> &nbsp;
+		Në datën: <input type="date" th:id="'endDate' + ${reportType}"> &nbsp;
+		<button type="button" class="btn btn-secondary" th:id="'buttonViewReportByDateRange' + ${reportType}">Shiko</button>
+	</div>
+	</form>
+
+	<div th:id="'chart_sales_by' + ${reportType}" class="justify-content-center mt-3"></div>
+
+	<div class="row justify-content-center">
+		<div class="col-2-sm shadow-sm bg-light rounded">
+			<div class="card">
+				<div class="card-header"><b>Totali i Shitjeve</b></div>
+				<div class="card-body">
+					<span class="h3" th:id="'textTotalGrossSales' + ${reportType}"></span>
+				</div>
+			</div>
+		</div>	
+
+		<div class="col-2-sm shadow-sm bg-light rounded">
+			<div class="card">
+				<div class="card-header"><b>Mesatarja e Shitjeve</b></div>
+				<div class="card-body">
+					<span class="h3" th:id="'textAvgGrossSales' + ${reportType}"></span>
+				</div>
+			</div>
+		</div>		
+
+		<div class="col-2-sm shadow-sm bg-light rounded">
+			<div class="card">
+				<div class="card-header" th:id="'labelTotalItems' + ${reportType}"><b></b></div>
+				<div class="card-body">
+					<span class="h3" th:id="'textTotalItems' + ${reportType}"></span>
+				</div>
+			</div>
+		</div>		
+	</div>
+</div>
+</body>
+</html>
