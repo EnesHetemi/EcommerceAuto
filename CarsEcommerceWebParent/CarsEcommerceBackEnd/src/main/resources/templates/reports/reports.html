@@ -29,7 +29,7 @@
 			<div th:replace="reports/sales_report_fragment::content('_category')"></div>
 		  </div>
 		  <div class="tab-pane p-3 shadow rounded" id="product" role="tabpanel">
-			<h2>Shitjet sipas Produkteve</h2>
+			<div th:replace="reports/sales_report_fragment::content('_product')"></div>
 		  </div>  	
 		 </div>
 	</div>
@@ -42,7 +42,7 @@
 	contextPath = "[[@{/}]]";
 
 	$(document).ready(function() {
-		google.charts.load('current', {'packages': ['corechart']});
+		google.charts.load('current', {'packages': ['corechart', 'table']});
 		google.charts.setOnLoadCallback(loadSalesReportByDate);
 	});
 
@@ -51,5 +51,6 @@
 <script type="text/javascript" th:src="@{/js/sales_report_by_date.js}"></script>
 <script type="text/javascript" th:src="@{/js/sales_report_common.js}"></script>
 <script type="text/javascript" th:src="@{/js/sales_report_by_category.js}"></script>
+<script type="text/javascript" th:src="@{/js/sales_report_by_product.js}"></script>
 </body>
 </html>
