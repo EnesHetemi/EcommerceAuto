@@ -23,5 +23,10 @@ public class SettingService {
 
 		return new EmailSettingBag(settings);
 	}
+	
+	public PaymentSettingBag getPaymentSettings() {
+		List<Setting> settings = repo.findByCategory(SettingCategory.PAYMENT);
+		return new PaymentSettingBag(settings);
+	}
 
 }

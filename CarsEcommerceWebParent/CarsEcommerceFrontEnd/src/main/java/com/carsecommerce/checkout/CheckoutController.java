@@ -20,11 +20,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.carsecommerce.customer.CustomerController;
 import com.carsecommerce.Utility;
 import com.carsecommerce.address.AddressService;
+import com.carsecommerce.checkout.paypal.PayPalApiException;
+import com.carsecommerce.checkout.paypal.PayPalService;
 import com.carsecommerce.common.entity.Address;
 import com.carsecommerce.common.entity.CartItem;
 import com.carsecommerce.common.entity.Customer;
 import com.carsecommerce.order.OrderService;
 import com.carsecommerce.setting.EmailSettingBag;
+import com.carsecommerce.setting.PaymentSettingBag;
 import com.carsecommerce.setting.SettingService;
 import com.carsecommerce.common.entity.order.Order;
 import com.carsecommerce.common.entity.order.PaymentMethod;
@@ -41,6 +44,7 @@ public class CheckoutController {
 	@Autowired private CustomerController customerController;
 	@Autowired private OrderService orderService;
 	@Autowired private SettingService settingService;
+	@Autowired private PayPalService paypalService;
 
 	@GetMapping("/checkout")
 	public String showCheckoutPage(Model model, HttpServletRequest request) {
@@ -56,7 +60,12 @@ public class CheckoutController {
 
 		List<CartItem> cartItems = cartService.listCartItems(customer);
 		CheckoutInfo checkoutInfo = checkoutService.prepareCheckout(cartItems);
+		
+		PaymentSettingBag paymentSettings = settingService.getPaymentSettings();
+		String paypalClientId = paymentSettings.getClientID();
 
+		model.addAttribute("paypalClientId", paypalClientId);
+		model.addAttribute("customer", customer);
 		model.addAttribute("checkoutInfo", checkoutInfo);
 		model.addAttribute("cartItems", cartItems);
 
@@ -83,6 +92,32 @@ public class CheckoutController {
 		sendOrderConfirmationEmail(request, createdOrder);
 
 		return "checkout/order_completed";
+	}
+	
+	@PostMapping("/process_paypal_order")
+	public String processPayPalOrder(HttpServletRequest request, Model model) 
+			throws UnsupportedEncodingException, MessagingException {
+		String orderId = request.getParameter("orderId");
+
+		String pageTitle = "Dështimi i Porosis";
+		String message = null;
+
+		try {
+			if (paypalService.validateOrder(orderId)) {
+				return placeOrder(request);
+			} else {
+				pageTitle = "Deshtimi i Porosis";
+				message = "ERROR: Transaksioni nuk mund të përfundonte sepse informacioni i porosisë është i pavlefshëm";
+			}
+		} catch (PayPalApiException e) {
+			message = "ERROR: Transaksioni dështoi për shkak të gabimit: " + e.getMessage();
+		}
+
+		model.addAttribute("pageTitle", pageTitle);
+		model.addAttribute("title", pageTitle);
+		model.addAttribute("message", message);
+
+		return "message";
 	}
 	
 	private void sendOrderConfirmationEmail(HttpServletRequest request, Order order) 
