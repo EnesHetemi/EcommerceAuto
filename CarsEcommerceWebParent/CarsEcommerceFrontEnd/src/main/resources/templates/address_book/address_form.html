@@ -64,6 +64,15 @@
 					required maxlength="45" minlength="2" />
 			</div>
 		</div>
+		
+		<div class="form-group row" hidden>
+	        <label class="col-sm-4 col-form-label">Kodi:</label>
+	        <div class="col-sm-8">
+		      <select th:field="*{code}" class="form-control shadow-sm bg-light rounded" required>
+			     <option th:value="AL" selected>AL</option>
+		      </select>
+	         </div>
+         </div>
 
 		<div class="text-center">
 			<input type="submit" value="Ruaj" class="btn btn-primary shadow rounded" />

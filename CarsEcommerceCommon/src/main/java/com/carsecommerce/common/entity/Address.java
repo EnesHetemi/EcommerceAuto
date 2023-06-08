@@ -33,6 +33,9 @@ public class Address {
 
 	@Column(nullable = false, length = 45)
 	private String city;
+	
+	@Column(name = "code", length = 5)
+	private String code;
 
 	@ManyToOne
 	@JoinColumn(name = "customer_id")
@@ -95,6 +98,14 @@ public class Address {
 
 	public void setCity(String city) {
         this.city = city;
+	}
+	
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
 	}
 
 	public Customer getCustomer() {

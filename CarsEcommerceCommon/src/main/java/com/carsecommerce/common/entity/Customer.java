@@ -44,6 +44,9 @@ public class Customer {
 	@Column(nullable = false, length = 45)
 	private String city;	
 
+	@Column(name = "code", length = 5)
+	private String code;
+
 	@Column(name = "verification_code", length = 64)
 	private String verificationCode;	
 
@@ -136,6 +139,14 @@ public class Customer {
 
 	public void setCity(String city) {
 		this.city = city;
+	}
+	
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
 	}
 
 	public String getVerificationCode() {
