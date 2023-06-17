@@ -6,10 +6,81 @@
 
     <div th:replace="navigation :: menu"></div>
 	<div>
-		<h1>Ecommerce Auto Parts</h1>
+		<div class="d-flex justify-content-center mt-4">
+		<form th:action="@{/products/page/1}" class="form-inline m-3 rounded p-3 shadow p-3 mb-5 bg-white rounded" id="searchForm">
+			
+			Marka:&nbsp;<select class="form-control" name="brandId" id="dropdownBrand">
+				<option value="0">Te Gjitha Markat</option>
+
+				<th:block class="col-sm-2" th:each="brand : ${listBrands}">
+				<option th:value="${brand.id}" th:selected="(${brandId} == ${brand.id})">[[${brand.name}]]</option>
+				</th:block>
+			</select>
+
+			&nbsp;Kerko:&nbsp;
+			<input type="search" name="keyword" th:value="${keyword}" class="form-control" required/>
+			&nbsp;&nbsp;
+			<input type="submit" value="Search" class="btn btn-primary shadow rounded" />
+			&nbsp;&nbsp;
+			<input type="button" value="Clear" class="btn btn-secondary shadow rounded" onclick="clearFilter()" />
+		</form>
+	</div>
+	
+<div class="container mydiv mt-3">
+    <div class="row">
+        <div class="rounded p-3 shadow p-3 mb-5 bg-white rounded col-md-4 mt-4" th:each="product : ${listProducts}">
+            <!-- bbb_deals -->
+            <div class="bbb_deals">
+                            <div class="bbb_deals_title"><div class="bbb_deals_item_name"><a th:href="@{'/product/' + ${product.alias}}">[[${product.productCode}]]</a></div></div>
+                <div class="bbb_deals_slider_container">
+                    <div class=" bbb_deals_item">
+                        <div class="bbb_deals_image"><img style="width:100%; height:260px" th:src="@{${product.mainImagePath}}" th:alt="@{${product.name}}"></div>
+                        <div class="bbb_deals_content">
+                            <div class="bbb_deals_info_line d-flex flex-row justify-content-start">
+                                <div class="bbb_deals_item_category"><strong>Brand: </strong>[[${product.brand.name}]]</div>
+                                <div class="bbb_deals_item_price_a ml-auto" th:if="${product.discountPercent > 0}"><strong>Qmimi Baze: </strong><strike>
+				                  <span th:if="${product.discountPercent <= 0}">[[${product.price}]] €</span>
+				                  <del th:if="${product.discountPercent > 0}"><span>[[${product.price}]] €</span></del></strike></div>
+                            </div>
+                            <div class="bbb_deals_info_line d-flex flex-row justify-content-start">
+                            <div th:if="${product.inStock}" style="color: green;"><span>Ka Stok</span></div>
+                            <div th:unless="${product.inStock}" style="color: red;"><span>Nuk Ka Stok</span></div>
+                                 <div class="bbb_deals_item_price ml-auto" th:if="${product.discountPercent > 0}"><strong>Qmimi: </strong>
+				                   <span style="font-size: larger; color: darkred">[[${product.discountPrice}]] €</span></div>
+				                 <div class="bbb_deals_item_price ml-auto" th:if="${product.discountPercent <= 0}"><strong>Qmimi: </strong>
+				                   <span style="font-size: larger; color: darkred">[[${product.price}]] €</span></div>
+                            </div>
+                            
+                            <div class="available">
+                                <div class="available_line d-flex flex-row justify-content-center">
+                                    <a class="text-dark" th:href="@{'/product/' + ${product.alias}}"><div class="available_title"><button type="button" class="btn btn-info shadow rounded">Shiko Detajet</button></button></div></a>
+                                </div>
+                                <div class="available_bar"><span style="width:17%"></span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+        </div>
+
+    <div th:replace="fragments :: pagination('products')"></div>
 	
 	<div th:replace="fragments :: footer"></div>
 	
 </div>
+
+
+<script th:src="@{/js/common_list.js}"></script>
+<script type="text/javascript">
+	moduleURL = "[[@{/products}]]";
+	
+	$("#dropdownBrand").on("change", function() {
+		$("#searchForm").submit();
+	});
+	
+	entityName = "product";
+</script>
 </body>
 </html>
