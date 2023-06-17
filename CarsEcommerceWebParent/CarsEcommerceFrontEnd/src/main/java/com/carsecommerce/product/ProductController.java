@@ -10,24 +10,29 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import com.carsecommerce.brand.BrandService;
+import com.carsecommerce.common.entity.Brand;
 import com.carsecommerce.common.entity.Product;
 
 @Controller
 public class ProductController {
 	@Autowired private ProductService productService;
+	@Autowired private BrandService brandService;
 
 	@GetMapping("/products")
 	public String listFirstPage(Model model) {
-		return listByPage(1, model, null);
+		return listByPage(1, model, null, 0);
 	}
 
 	@GetMapping("/products/page/{pageNum}")
 	public String listByPage(
 			@PathVariable(name = "pageNum") int pageNum, Model model,
-			@Param("keyword") String keyword
+			@Param("keyword") String keyword,
+			@Param("brandId") Integer brandId
 			) {
-		Page<Product> page = productService.listByPage(pageNum, keyword);
+		Page<Product> page = productService.listByPage(pageNum, keyword, brandId);
 		List<Product> listProducts = page.getContent();
+		List<Brand> listBrands = brandService.listAll();
 
 		long startCount = (pageNum - 1) * ProductService.PRODUCTS_PER_PAGE + 1;
 		long endCount = startCount + ProductService.PRODUCTS_PER_PAGE - 1;
@@ -35,6 +40,8 @@ public class ProductController {
 			endCount = page.getTotalElements();
 		}
 
+		if (brandId != null) model.addAttribute("brandId", brandId); 
+		
 		model.addAttribute("currentPage", pageNum);
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("startCount", startCount);
@@ -42,6 +49,7 @@ public class ProductController {
 		model.addAttribute("totalItems", page.getTotalElements());
 		model.addAttribute("keyword", keyword);	
 		model.addAttribute("moduleURL", "/products");
+		model.addAttribute("listBrands", listBrands);
 
 		model.addAttribute("listProducts", listProducts);
 

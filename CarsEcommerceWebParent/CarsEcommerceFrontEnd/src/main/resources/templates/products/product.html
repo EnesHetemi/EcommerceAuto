@@ -7,6 +7,27 @@
 
 <div th:replace="fragments :: search_form('/products/page/1')" />
 
+
+	<div class="d-flex justify-content-center mt-4">
+		<form th:action="@{/products/page/1}" class="form-inline m-3 rounded p-3 shadow p-3 mb-5 bg-white rounded" id="searchForm">
+			
+			Marka:&nbsp;<select class="form-control" name="brandId" id="dropdownBrand">
+				<option value="0">Te Gjitha Markat</option>
+
+				<th:block class="col-sm-2" th:each="brand : ${listBrands}">
+				<option th:value="${brand.id}" th:selected="(${brandId} == ${brand.id})">[[${brand.name}]]</option>
+				</th:block>
+			</select>
+
+			&nbsp;Kerko:&nbsp;
+			<input type="search" name="keyword" th:value="${keyword}" class="form-control" required/>
+			&nbsp;&nbsp;
+			<input type="submit" value="Search" class="btn btn-primary shadow rounded" />
+			&nbsp;&nbsp;
+			<input type="button" value="Clear" class="btn btn-secondary shadow rounded" onclick="clearFilter()" />
+		</form>
+	</div>
+	
 <div class="container mydiv mt-3">
     <div class="row">
         <div class="rounded p-3 shadow p-3 mb-5 bg-white rounded col-md-4 mt-4" th:each="product : ${listProducts}">
@@ -53,6 +74,10 @@
 	<script th:src="@{/js/common_list.js}"></script>
 <script type="text/javascript">
 	moduleURL = "[[@{/products}]]";
+	
+	$("#dropdownBrand").on("change", function() {
+		$("#searchForm").submit();
+	});
 	
 	entityName = "product";
 </script>

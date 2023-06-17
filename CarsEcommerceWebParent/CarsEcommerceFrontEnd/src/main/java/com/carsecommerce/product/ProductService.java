@@ -24,12 +24,20 @@ public class ProductService {
 		return (List<Product>) repo.findAll();
 	}
 	
-	public Page<Product> listByPage(int pageNum, String keyword) {
+	public Page<Product> listByPage(int pageNum, String keyword, Integer brandId) {
 
 		Pageable pageable = PageRequest.of(pageNum - 1, PRODUCTS_PER_PAGE);
 
-		if (keyword != null) {
+		if (keyword != null && !keyword.isEmpty()) {
+			if (brandId != null && brandId > 0) {
+				return repo.searchInBrand(brandId, keyword, pageable);
+			}
+
 			return repo.findAll(keyword, pageable);
+		}
+
+		if (brandId != null && brandId > 0) {
+			return repo.findAllInBrand(brandId, pageable);
 		}
 
 		return repo.findAll(pageable);		
